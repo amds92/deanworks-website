@@ -1,0 +1,65 @@
+backend:
+  name: github
+  repo: amds92/deanworks-website
+  branch: main
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+
+media_folder: "uploads"
+public_folder: "/uploads"
+
+locale: "pt"
+
+collections:
+  - name: "viaturas"
+    label: "Viaturas"
+    label_singular: "Viatura"
+    folder: "content/viaturas"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: "titulo"
+    fields:
+      - { label: "Título (ex: Mercedes C63 AMG 2019)", name: "titulo", widget: "string" }
+      - { label: "Marca", name: "marca", widget: "string" }
+      - { label: "Modelo", name: "modelo", widget: "string" }
+      - { label: "Ano", name: "ano", widget: "number", value_type: "int" }
+      - { label: "Preço (€)", name: "preco", widget: "number", value_type: "int" }
+      - { label: "Quilómetros", name: "km", widget: "number", value_type: "int" }
+      - { label: "Descrição", name: "descricao", widget: "text" }
+      - { label: "Importada?", name: "importada", widget: "boolean", default: false }
+      - { label: "Em Destaque no site?", name: "destaque", widget: "boolean", default: false }
+      - { label: "Foto Principal", name: "foto", widget: "image" }
+      - label: "Estado"
+        name: "estado"
+        widget: "select"
+        default: "disponivel"
+        options:
+          - { label: "Disponível", value: "disponivel" }
+          - { label: "Reservado", value: "reservado" }
+          - { label: "Vendido", value: "vendido" }
+      - { label: "Data de publicação", name: "data", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }
+
+  - name: "trabalhos"
+    label: "Trabalhos Realizados"
+    label_singular: "Trabalho"
+    folder: "content/trabalhos"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: "titulo"
+    fields:
+      - { label: "Título", name: "titulo", widget: "string" }
+      - label: "Tipo de Serviço"
+        name: "tipo"
+        widget: "select"
+        options:
+          - "Importação"
+          - "Gestão de Frotas"
+          - "Serviço Comfort"
+          - "Preparação e Entrega"
+          - "Diagnóstico Técnico"
+          - "Personalização"
+      - { label: "O que o cliente pediu", name: "pedido_cliente", widget: "text" }
+      - { label: "Solução encontrada", name: "solucao", widget: "text" }
+      - { label: "Resultado final", name: "resultado", widget: "text" }
+      - { label: "Foto", name: "foto", widget: "image" }
+      - { label: "Data", name: "data", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }

@@ -1,0 +1,14 @@
+{
+  "titulo": "Mercedes-Benz C63 AMG 2019",
+  "marca": "Mercedes-Benz",
+  "modelo": "C63 AMG",
+  "ano": 2019,
+  "preco": 45000,
+  "km": 45000,
+  "descricao": "Excelente estado, full extras. Importado diretamente da Alemanha com historial completo de manutenção. Cor Cinzento Grafite com interior em pele preta com costuras vermelhas.",
+  "importada": true,
+  "destaque": true,
+  "foto": "",
+  "estado": "disponivel",
+  "data": "2025-03-01"
+}
