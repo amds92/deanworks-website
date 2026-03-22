@@ -2,4 +2,999 @@
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
-<meta name="
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dean Works — Área de Gestão</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #F5F5F3; color: #1a1a1a; }
+
+/* ── LOGIN ── */
+#login-screen {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #141312 0%, #2a2825 100%);
+}
+.login-box {
+  background: white; border-radius: 16px; padding: 48px 40px;
+  width: 100%; max-width: 400px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+.login-logo { text-align: center; margin-bottom: 32px; }
+.login-logo h1 { font-size: 28px; font-weight: 700; color: #141312; letter-spacing: -0.5px; }
+.login-logo p { font-size: 13px; color: #888; margin-top: 4px; }
+.login-box label { display: block; font-size: 12px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+.login-box input[type="password"] {
+  width: 100%; padding: 13px 16px; border: 1.5px solid #E0E0E0;
+  border-radius: 8px; font-size: 16px; outline: none; transition: border-color 0.2s;
+  margin-bottom: 20px;
+}
+.login-box input[type="password"]:focus { border-color: #C8A84A; }
+.login-btn {
+  width: 100%; padding: 14px; background: #141312; color: white;
+  border: none; border-radius: 8px; font-size: 15px; font-weight: 600;
+  cursor: pointer; transition: background 0.2s;
+}
+.login-btn:hover { background: #333; }
+.login-error { color: #e53e3e; font-size: 13px; text-align: center; margin-top: 12px; display: none; }
+
+/* ── APP ── */
+#app { display: none; min-height: 100vh; }
+
+.sidebar {
+  position: fixed; top: 0; left: 0; bottom: 0; width: 240px;
+  background: #141312; padding: 28px 0;
+  display: flex; flex-direction: column;
+  z-index: 10;
+}
+.sidebar-logo { padding: 0 24px 28px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.sidebar-logo h2 { font-size: 18px; font-weight: 700; color: white; }
+.sidebar-logo p { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 3px; }
+
+.sidebar-nav { padding: 16px 0; flex: 1; }
+.nav-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 24px; font-size: 14px; font-weight: 500;
+  color: rgba(255,255,255,0.5); cursor: pointer; transition: 0.2s;
+  border-left: 3px solid transparent;
+}
+.nav-item:hover { color: white; background: rgba(255,255,255,0.05); }
+.nav-item.active { color: white; border-color: #C8A84A; background: rgba(255,255,255,0.06); }
+.nav-item .icon { font-size: 18px; }
+
+.sidebar-logout {
+  padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.08);
+}
+.logout-btn {
+  width: 100%; padding: 10px; background: transparent;
+  border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.4);
+  border-radius: 6px; font-size: 13px; cursor: pointer; transition: 0.2s;
+}
+.logout-btn:hover { border-color: rgba(255,255,255,0.4); color: white; }
+
+.main { margin-left: 240px; padding: 36px 40px; }
+
+.page { display: none; }
+.page.active { display: block; }
+
+.page-header { margin-bottom: 32px; }
+.page-header h1 { font-size: 26px; font-weight: 700; color: #141312; }
+.page-header p { font-size: 14px; color: #666; margin-top: 6px; }
+
+/* ── CARDS ── */
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+.stat-card {
+  background: white; border-radius: 12px; padding: 20px 24px;
+  border: 1px solid #E8E8E6;
+}
+.stat-card .num { font-size: 32px; font-weight: 700; color: #141312; }
+.stat-card .label { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+.stat-card .icon { font-size: 24px; margin-bottom: 10px; }
+
+/* ── FORM ── */
+.card {
+  background: white; border-radius: 12px; padding: 32px;
+  border: 1px solid #E8E8E6; margin-bottom: 24px;
+}
+.card h2 { font-size: 18px; font-weight: 700; margin-bottom: 24px; color: #141312; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.form-group { margin-bottom: 16px; }
+.form-group label {
+  display: block; font-size: 12px; font-weight: 600;
+  color: #555; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;
+}
+.form-group input, .form-group textarea, .form-group select {
+  width: 100%; padding: 11px 14px;
+  border: 1.5px solid #E0E0E0; border-radius: 8px;
+  font-size: 14px; font-family: inherit; outline: none;
+  transition: border-color 0.2s; background: white; color: #141312;
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: #C8A84A; }
+.form-group textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+
+.toggle-group { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.toggle-group label { font-size: 14px; font-weight: 500; color: #333; cursor: pointer; }
+.toggle {
+  position: relative; width: 44px; height: 24px;
+  background: #E0E0E0; border-radius: 100px; cursor: pointer;
+  transition: background 0.25s; flex-shrink: 0;
+}
+.toggle.on { background: #C8A84A; }
+.toggle::after {
+  content: ''; position: absolute; top: 2px; left: 2px;
+  width: 20px; height: 20px; background: white; border-radius: 50%;
+  transition: transform 0.25s; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.toggle.on::after { transform: translateX(20px); }
+
+/* ── PHOTO UPLOAD ── */
+.photo-upload {
+  border: 2px dashed #E0E0E0; border-radius: 10px;
+  padding: 32px; text-align: center; cursor: pointer;
+  transition: all 0.2s; position: relative; background: #FAFAF8;
+}
+.photo-upload:hover { border-color: #C8A84A; background: #FFF8E8; }
+.photo-upload.has-file { border-color: #C8A84A; border-style: solid; }
+.photo-upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.photo-upload .icon { font-size: 32px; margin-bottom: 8px; }
+.photo-upload p { font-size: 14px; color: #666; }
+.photo-upload .hint { font-size: 12px; color: #aaa; margin-top: 4px; }
+.photo-preview { max-width: 200px; max-height: 150px; border-radius: 8px; margin-top: 12px; }
+
+.multi-photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 12px; }
+.photo-thumb {
+  aspect-ratio: 1; border-radius: 6px; overflow: hidden; position: relative;
+  background: #F0F0F0;
+}
+.photo-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.photo-thumb .remove {
+  position: absolute; top: 4px; right: 4px; background: rgba(0,0,0,0.6);
+  color: white; border: none; border-radius: 50%; width: 20px; height: 20px;
+  font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 11px 22px; border-radius: 8px; font-size: 14px;
+  font-weight: 600; cursor: pointer; border: none; transition: 0.2s;
+}
+.btn-primary { background: #141312; color: white; }
+.btn-primary:hover { background: #333; }
+.btn-primary:disabled { background: #ccc; cursor: not-allowed; }
+.btn-gold { background: #C8A84A; color: white; }
+.btn-gold:hover { background: #b8982a; }
+.btn-outline { background: transparent; border: 1.5px solid #E0E0E0; color: #555; }
+.btn-outline:hover { border-color: #C8A84A; color: #C8A84A; }
+.btn-danger { background: #FEF2F2; color: #e53e3e; border: 1px solid #FECACA; }
+.btn-danger:hover { background: #e53e3e; color: white; }
+
+.form-actions { display: flex; gap: 12px; margin-top: 24px; padding-top: 24px; border-top: 1px solid #F0F0F0; }
+
+/* ── LIST ── */
+.item-list { display: flex; flex-direction: column; gap: 12px; }
+.item-card {
+  background: white; border: 1.5px solid #E8E8E6; border-radius: 10px;
+  padding: 16px 20px; display: flex; align-items: center; gap: 16px;
+  transition: border-color 0.2s;
+}
+.item-card:hover { border-color: #C8A84A; }
+.item-card .thumb {
+  width: 70px; height: 55px; border-radius: 6px;
+  object-fit: cover; background: #F0F0F0; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 24px;
+}
+.item-card .thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; }
+.item-card .info { flex: 1; }
+.item-card .title { font-size: 15px; font-weight: 600; color: #141312; }
+.item-card .sub { font-size: 13px; color: #888; margin-top: 3px; }
+.item-card .badges { display: flex; gap: 6px; margin-top: 7px; flex-wrap: wrap; }
+.badge {
+  font-size: 11px; font-weight: 600; padding: 3px 9px;
+  border-radius: 100px; text-transform: uppercase; letter-spacing: 0.05em;
+}
+.badge-gold { background: #FFF8E8; color: #C8A84A; border: 1px solid #F0D898; }
+.badge-green { background: #EEF7F2; color: #1A7A3A; border: 1px solid #B2DFCC; }
+.badge-gray { background: #F5F5F3; color: #888; border: 1px solid #E0E0E0; }
+.badge-blue { background: #EEF3FF; color: #0047FF; border: 1px solid #C0CFFF; }
+.item-card .actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: 28px; right: 28px; z-index: 999;
+  background: #141312; color: white; padding: 14px 22px;
+  border-radius: 10px; font-size: 14px; font-weight: 500;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  transform: translateY(100px); opacity: 0; transition: all 0.3s;
+  display: flex; align-items: center; gap: 10px;
+}
+.toast.show { transform: none; opacity: 1; }
+.toast.success { border-left: 4px solid #C8A84A; }
+.toast.error { border-left: 4px solid #e53e3e; }
+
+/* ── LOADING ── */
+.loading-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(255,255,255,0.85);
+  z-index: 500; align-items: center; justify-content: center; flex-direction: column; gap: 16px;
+}
+.loading-overlay.show { display: flex; }
+.spinner {
+  width: 40px; height: 40px; border: 3px solid #E0E0E0;
+  border-top-color: #C8A84A; border-radius: 50%; animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { font-size: 14px; font-weight: 500; color: #666; }
+
+@media(max-width: 900px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; padding: 20px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .form-row, .form-row-3 { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div class="loading-overlay" id="loading">
+  <div class="spinner"></div>
+  <div class="loading-text" id="loading-text">A publicar...</div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">
+      <h1>🚗 Dean Works</h1>
+      <p>Área de Gestão do Site</p>
+    </div>
+    <label for="pwd">Password</label>
+    <input type="password" id="pwd" placeholder="Introduza a password" onkeydown="if(event.key==='Enter')doLogin()">
+    <div id="token-section" style="margin-bottom:0;">
+      <label for="gh-token" style="margin-top:8px;display:block;font-size:12px;font-weight:600;color:#666;text-transform:uppercase;letter-spacing:0.06em;">GitHub Token</label>
+      <input type="password" id="gh-token" placeholder="ghp_..." style="width:100%;padding:11px 14px;border:1.5px solid #E0E0E0;border-radius:8px;font-size:14px;margin-bottom:6px;">
+      <p style="font-size:11px;color:#aaa;margin-bottom:14px;">Guardado no browser. Só pedido uma vez.</p>
+    </div>
+    <button class="login-btn" onclick="doLogin()">Entrar →</button>
+    <div class="login-error" id="login-error">Password incorrecta. Tente novamente.</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="sidebar">
+    <div class="sidebar-logo">
+      <h2>Dean Works</h2>
+      <p>Área de Gestão</p>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" onclick="showPage('dashboard')" id="nav-dashboard">
+        <span class="icon">📊</span> Dashboard
+      </div>
+      <div class="nav-item" onclick="showPage('viaturas')" id="nav-viaturas">
+        <span class="icon">🚗</span> Viaturas
+      </div>
+      <div class="nav-item" onclick="showPage('add-viatura')" id="nav-add-viatura">
+        <span class="icon">➕</span> Adicionar Viatura
+      </div>
+      <div class="nav-item" onclick="showPage('trabalhos')" id="nav-trabalhos">
+        <span class="icon">🔧</span> Trabalhos Realizados
+      </div>
+      <div class="nav-item" onclick="showPage('add-trabalho')" id="nav-add-trabalho">
+        <span class="icon">➕</span> Adicionar Trabalho
+      </div>
+    </nav>
+    <div class="sidebar-logout">
+      <button class="logout-btn" onclick="doLogout()">Sair da conta</button>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-header">
+        <h1>Bem-vindo, Dean 👋</h1>
+        <p>Gerencie as viaturas e trabalhos realizados do seu site.</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="icon">🚗</div>
+          <div class="num" id="stat-viaturas">—</div>
+          <div class="label">Viaturas à venda</div>
+        </div>
+        <div class="stat-card">
+          <div class="icon">⭐</div>
+          <div class="num" id="stat-destaque">—</div>
+          <div class="label">Em destaque</div>
+        </div>
+        <div class="stat-card">
+          <div class="icon">🔧</div>
+          <div class="num" id="stat-trabalhos">—</div>
+          <div class="label">Trabalhos realizados</div>
+        </div>
+        <div class="stat-card">
+          <div class="icon">✅</div>
+          <div class="num">Live</div>
+          <div class="label">Estado do site</div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Acesso rápido</h2>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <button class="btn btn-gold" onclick="showPage('add-viatura')">➕ Nova Viatura</button>
+          <button class="btn btn-outline" onclick="showPage('add-trabalho')">➕ Novo Trabalho</button>
+          <a href="https://amds92.github.io/deanworks-website/" target="_blank" class="btn btn-outline">🌐 Ver o Site</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- LISTA VIATURAS -->
+    <div class="page" id="page-viaturas">
+      <div class="page-header">
+        <h1>Viaturas à Venda</h1>
+        <p>Gerencie as viaturas disponíveis no seu site.</p>
+      </div>
+      <div style="margin-bottom:20px;">
+        <button class="btn btn-gold" onclick="showPage('add-viatura')">➕ Adicionar Viatura</button>
+      </div>
+      <div class="item-list" id="viaturas-list">
+        <p style="color:#888;font-size:14px;">A carregar...</p>
+      </div>
+    </div>
+
+    <!-- ADD VIATURA -->
+    <div class="page" id="page-add-viatura">
+      <div class="page-header">
+        <h1 id="viatura-form-title">Adicionar Viatura</h1>
+        <p>Preencha os dados da viatura para publicar no site.</p>
+      </div>
+      <div class="card">
+        <h2>Informação da Viatura</h2>
+        <input type="hidden" id="v-edit-id">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Marca *</label>
+            <input type="text" id="v-marca" placeholder="ex: Mercedes-Benz">
+          </div>
+          <div class="form-group">
+            <label>Modelo *</label>
+            <input type="text" id="v-modelo" placeholder="ex: C63 AMG">
+          </div>
+        </div>
+        <div class="form-row-3">
+          <div class="form-group">
+            <label>Ano</label>
+            <input type="number" id="v-ano" placeholder="ex: 2020">
+          </div>
+          <div class="form-group">
+            <label>Preço (€) *</label>
+            <input type="number" id="v-preco" placeholder="ex: 45000">
+          </div>
+          <div class="form-group">
+            <label>Kilometros</label>
+            <input type="number" id="v-km" placeholder="ex: 35000">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Descrição</label>
+          <textarea id="v-descricao" placeholder="Descreva a viatura — estado, extras, histórico..."></textarea>
+        </div>
+        <div style="display:flex;gap:32px;flex-wrap:wrap;margin-bottom:16px;">
+          <div class="toggle-group">
+            <div class="toggle" id="toggle-importada" onclick="toggleSwitch('importada')"></div>
+            <label onclick="toggleSwitch('importada')">🌍 Importada</label>
+          </div>
+          <div class="toggle-group">
+            <div class="toggle" id="toggle-destaque" onclick="toggleSwitch('destaque')"></div>
+            <label onclick="toggleSwitch('destaque')">⭐ Em Destaque (aparece no topo do site)</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Foto Principal *</label>
+          <div class="photo-upload" id="v-foto-drop">
+            <input type="file" id="v-foto" accept="image/*" onchange="handleFotoViatura(event)">
+            <div class="icon">📷</div>
+            <p>Clique para escolher ou arraste uma foto</p>
+            <p class="hint">JPG, PNG — máximo 5MB</p>
+            <img class="photo-preview" id="v-foto-preview" style="display:none">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-gold" onclick="submitViatura()" id="v-submit-btn">📤 Publicar Viatura</button>
+          <button class="btn btn-outline" onclick="resetViaturaForm()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- LISTA TRABALHOS -->
+    <div class="page" id="page-trabalhos">
+      <div class="page-header">
+        <h1>Trabalhos Realizados</h1>
+        <p>Mostre aos clientes o que já foi feito.</p>
+      </div>
+      <div style="margin-bottom:20px;">
+        <button class="btn btn-gold" onclick="showPage('add-trabalho')">➕ Adicionar Trabalho</button>
+      </div>
+      <div class="item-list" id="trabalhos-list">
+        <p style="color:#888;font-size:14px;">A carregar...</p>
+      </div>
+    </div>
+
+    <!-- ADD TRABALHO -->
+    <div class="page" id="page-add-trabalho">
+      <div class="page-header">
+        <h1 id="trabalho-form-title">Adicionar Trabalho Realizado</h1>
+        <p>Partilhe um caso de sucesso com os seus clientes.</p>
+      </div>
+      <div class="card">
+        <h2>Detalhes do Trabalho</h2>
+        <input type="hidden" id="t-edit-id">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Título *</label>
+            <input type="text" id="t-titulo" placeholder="ex: Mercedes C63 AMG — Importação Alemanha">
+          </div>
+          <div class="form-group">
+            <label>Tipo de Serviço</label>
+            <select id="t-tipo">
+              <option value="Importação">🌍 Importação</option>
+              <option value="Gestão de Frotas">🏢 Gestão de Frotas</option>
+              <option value="Serviço Comfort">💎 Serviço Comfort</option>
+              <option value="Preparação e Entrega">✨ Preparação e Entrega</option>
+              <option value="Diagnóstico Técnico">🔧 Diagnóstico Técnico</option>
+              <option value="Personalização">🎨 Personalização</option>
+              <option value="Retoma e Venda">🔄 Retoma e Venda</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Pedido do Cliente</label>
+          <textarea id="t-pedido" placeholder="O que o cliente precisava..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Solução Encontrada</label>
+          <textarea id="t-solucao" placeholder="Como resolvemos o problema..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Resultado Final</label>
+          <textarea id="t-resultado" placeholder="O que foi entregue ao cliente..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Foto</label>
+          <div class="photo-upload" id="t-foto-drop">
+            <input type="file" id="t-foto" accept="image/*" onchange="handleFotoTrabalho(event)">
+            <div class="icon">📷</div>
+            <p>Clique para escolher uma foto do trabalho</p>
+            <p class="hint">JPG, PNG — máximo 5MB</p>
+            <img class="photo-preview" id="t-foto-preview" style="display:none">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-gold" onclick="submitTrabalho()" id="t-submit-btn">📤 Publicar Trabalho</button>
+          <button class="btn btn-outline" onclick="resetTrabalhoForm()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════
+// CONFIG
+// ══════════════════════════════════
+const CONFIG = {
+  password:  'deanworks2025',
+  token:     localStorage.getItem('dw_token') || '',
+  repo:      'amds92/deanworks-website',
+  branch:    'main'
+};
+// Esconder campo token se já existe guardado
+if (CONFIG.token) {
+  document.addEventListener('DOMContentLoaded', () => {
+    const ts = document.getElementById('token-section');
+    if (ts) ts.style.display = 'none';
+  });
+}
+
+// ══════════════════════════════════
+// STATE
+// ══════════════════════════════════
+let state = {
+  viaturas: [],
+  trabalhos: [],
+  vFotoData: null,
+  vFotoName: null,
+  tFotoData: null,
+  tFotoName: null,
+  importada: false,
+  destaque: false,
+};
+
+// ══════════════════════════════════
+// LOGIN
+// ══════════════════════════════════
+function doLogin() {
+  const pwd = document.getElementById('pwd').value;
+  if (pwd === CONFIG.password) {
+    // Guardar token no localStorage se foi introduzido
+    const tokenInput = document.getElementById('gh-token').value.trim();
+    if (tokenInput) {
+      localStorage.setItem('dw_token', tokenInput);
+      CONFIG.token = tokenInput;
+    }
+    if (!CONFIG.token) {
+      document.getElementById('login-error').textContent = 'Introduza o GitHub Token.';
+      document.getElementById('login-error').style.display = 'block';
+      document.getElementById('gh-token').focus();
+      return;
+    }
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    loadAll();
+  } else {
+    document.getElementById('login-error').textContent = 'Password incorrecta. Tente novamente.';
+    document.getElementById('login-error').style.display = 'block';
+    document.getElementById('pwd').value = '';
+    document.getElementById('pwd').focus();
+  }
+}
+
+function doLogout() {
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('pwd').value = '';
+}
+
+// ══════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  const navEl = document.getElementById('nav-' + name);
+  if (navEl) navEl.classList.add('active');
+  if (name === 'viaturas') renderViaturas();
+  if (name === 'trabalhos') renderTrabalhos();
+  if (name === 'add-viatura') resetViaturaForm();
+  if (name === 'add-trabalho') resetTrabalhoForm();
+}
+
+// ══════════════════════════════════
+// GITHUB API
+// ══════════════════════════════════
+async function ghFetch(path, method = 'GET', body = null) {
+  const opts = {
+    method,
+    headers: {
+      'Authorization': 'token ' + CONFIG.token,
+      'Content-Type': 'application/json',
+      'Accept': 'application/vnd.github.v3+json'
+    }
+  };
+  if (body) opts.body = JSON.stringify(body);
+  const res = await fetch('https://api.github.com/repos/' + CONFIG.repo + path, opts);
+  if (!res.ok && res.status !== 404) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || 'GitHub API error: ' + res.status);
+  }
+  return res.status === 404 ? null : res.json();
+}
+
+async function getFileSha(path) {
+  const data = await ghFetch('/contents/' + path);
+  return data ? data.sha : null;
+}
+
+async function saveFile(path, content, message) {
+  const sha = await getFileSha(path);
+  const body = {
+    message,
+    content: btoa(unescape(encodeURIComponent(content))),
+    branch: CONFIG.branch
+  };
+  if (sha) body.sha = sha;
+  return ghFetch('/contents/' + path, 'PUT', body);
+}
+
+async function saveImage(path, base64Data, message) {
+  const sha = await getFileSha(path);
+  // base64Data comes without the data:image/xxx;base64, prefix
+  const body = { message, content: base64Data, branch: CONFIG.branch };
+  if (sha) body.sha = sha;
+  return ghFetch('/contents/' + path, 'PUT', body);
+}
+
+async function deleteFile(path, message) {
+  const sha = await getFileSha(path);
+  if (!sha) return;
+  return ghFetch('/contents/' + path, 'DELETE', { message, sha, branch: CONFIG.branch });
+}
+
+async function listFiles(dir) {
+  const data = await ghFetch('/contents/' + dir);
+  return data || [];
+}
+
+async function getFileContent(path) {
+  const data = await ghFetch('/contents/' + path);
+  if (!data) return null;
+  return JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g, '')))));
+}
+
+// ══════════════════════════════════
+// LOAD DATA
+// ══════════════════════════════════
+async function loadAll() {
+  try {
+    const [vFiles, tFiles] = await Promise.all([
+      listFiles('content/viaturas'),
+      listFiles('content/trabalhos')
+    ]);
+    const viaturas = await Promise.all(
+      vFiles.filter(f => f.name.endsWith('.json')).map(f => getFileContent(f.path))
+    );
+    const trabalhos = await Promise.all(
+      tFiles.filter(f => f.name.endsWith('.json')).map(f => getFileContent(f.path))
+    );
+    state.viaturas = viaturas.filter(Boolean);
+    state.trabalhos = trabalhos.filter(Boolean);
+    updateDashboard();
+  } catch(e) {
+    // first run — no content yet
+    state.viaturas = [];
+    state.trabalhos = [];
+    updateDashboard();
+  }
+}
+
+function updateDashboard() {
+  document.getElementById('stat-viaturas').textContent = state.viaturas.length;
+  document.getElementById('stat-destaque').textContent = state.viaturas.filter(v => v.destaque).length;
+  document.getElementById('stat-trabalhos').textContent = state.trabalhos.length;
+}
+
+// ══════════════════════════════════
+// RENDER LISTS
+// ══════════════════════════════════
+function renderViaturas() {
+  const el = document.getElementById('viaturas-list');
+  if (!state.viaturas.length) {
+    el.innerHTML = '<p style="color:#888;font-size:14px;">Ainda não tem viaturas. Clique em "Adicionar Viatura".</p>';
+    return;
+  }
+  el.innerHTML = state.viaturas.map(v => `
+    <div class="item-card">
+      <div class="thumb">${v.foto ? `<img src="${v.foto}" onerror="this.parentNode.textContent='🚗'">` : '🚗'}</div>
+      <div class="info">
+        <div class="title">${v.marca} ${v.modelo} ${v.ano ? '(' + v.ano + ')' : ''}</div>
+        <div class="sub">€${Number(v.preco).toLocaleString('pt-PT')} ${v.km ? '· ' + Number(v.km).toLocaleString('pt-PT') + ' km' : ''}</div>
+        <div class="badges">
+          ${v.destaque ? '<span class="badge badge-gold">⭐ Destaque</span>' : ''}
+          ${v.importada ? '<span class="badge badge-blue">🌍 Importada</span>' : ''}
+          <span class="badge badge-green">✓ Online</span>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-outline" onclick="editViatura('${v.id}')">✏️ Editar</button>
+        <button class="btn btn-danger" onclick="deleteViatura('${v.id}')">🗑️</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderTrabalhos() {
+  const el = document.getElementById('trabalhos-list');
+  if (!state.trabalhos.length) {
+    el.innerHTML = '<p style="color:#888;font-size:14px;">Ainda não tem trabalhos. Clique em "Adicionar Trabalho".</p>';
+    return;
+  }
+  el.innerHTML = state.trabalhos.map(t => `
+    <div class="item-card">
+      <div class="thumb">${t.foto ? `<img src="${t.foto}" onerror="this.parentNode.textContent='🔧'">` : '🔧'}</div>
+      <div class="info">
+        <div class="title">${t.titulo}</div>
+        <div class="sub">${t.tipo} · ${t.data || ''}</div>
+        <div class="badges"><span class="badge badge-green">✓ Online</span></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-outline" onclick="editTrabalho('${t.id}')">✏️ Editar</button>
+        <button class="btn btn-danger" onclick="deleteTrabalho('${t.id}')">🗑️</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ══════════════════════════════════
+// TOGGLES
+// ══════════════════════════════════
+function toggleSwitch(field) {
+  state[field] = !state[field];
+  const el = document.getElementById('toggle-' + field);
+  el.classList.toggle('on', state[field]);
+}
+
+// ══════════════════════════════════
+// PHOTO HANDLERS
+// ══════════════════════════════════
+function handleFotoViatura(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    state.vFotoData = ev.target.result.split(',')[1];
+    state.vFotoName = Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const preview = document.getElementById('v-foto-preview');
+    preview.src = ev.target.result;
+    preview.style.display = 'block';
+    document.getElementById('v-foto-drop').classList.add('has-file');
+  };
+  reader.readAsDataURL(file);
+}
+
+function handleFotoTrabalho(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    state.tFotoData = ev.target.result.split(',')[1];
+    state.tFotoName = Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const preview = document.getElementById('t-foto-preview');
+    preview.src = ev.target.result;
+    preview.style.display = 'block';
+    document.getElementById('t-foto-drop').classList.add('has-file');
+  };
+  reader.readAsDataURL(file);
+}
+
+// ══════════════════════════════════
+// SUBMIT VIATURA
+// ══════════════════════════════════
+async function submitViatura() {
+  const marca = document.getElementById('v-marca').value.trim();
+  const modelo = document.getElementById('v-modelo').value.trim();
+  const preco = document.getElementById('v-preco').value;
+  if (!marca || !modelo || !preco) { showToast('Preencha Marca, Modelo e Preço.', 'error'); return; }
+
+  const isEdit = !!document.getElementById('v-edit-id').value;
+  const id = document.getElementById('v-edit-id').value || slug(marca + '-' + modelo + '-' + Date.now());
+
+  showLoading('A publicar viatura...');
+
+  try {
+    let fotoUrl = null;
+
+    if (state.vFotoData) {
+      const ext = state.vFotoName.split('.').pop();
+      const imgPath = 'uploads/viaturas/' + id + '.' + ext;
+      await saveImage(imgPath, state.vFotoData, 'Upload foto viatura: ' + id);
+      fotoUrl = 'https://raw.githubusercontent.com/' + CONFIG.repo + '/main/' + imgPath;
+    } else if (isEdit) {
+      const existing = state.viaturas.find(v => v.id === id);
+      fotoUrl = existing ? existing.foto : null;
+    }
+
+    const viatura = {
+      id, marca, modelo,
+      ano: +document.getElementById('v-ano').value || null,
+      preco: +preco,
+      km: +document.getElementById('v-km').value || null,
+      descricao: document.getElementById('v-descricao').value.trim(),
+      importada: state.importada,
+      destaque: state.destaque,
+      foto: fotoUrl,
+      data: new Date().toISOString().split('T')[0]
+    };
+
+    await saveFile('content/viaturas/' + id + '.json', JSON.stringify(viatura, null, 2), (isEdit ? 'Editar' : 'Adicionar') + ' viatura: ' + marca + ' ' + modelo);
+    await updateSiteData();
+
+    if (isEdit) {
+      state.viaturas = state.viaturas.map(v => v.id === id ? viatura : v);
+    } else {
+      state.viaturas.push(viatura);
+    }
+    updateDashboard();
+    hideLoading();
+    showToast('✅ Viatura publicada com sucesso! O site actualiza em ~1 minuto.', 'success');
+    showPage('viaturas');
+  } catch(e) {
+    hideLoading();
+    showToast('❌ Erro: ' + e.message, 'error');
+  }
+}
+
+// ══════════════════════════════════
+// SUBMIT TRABALHO
+// ══════════════════════════════════
+async function submitTrabalho() {
+  const titulo = document.getElementById('t-titulo').value.trim();
+  if (!titulo) { showToast('Preencha o título do trabalho.', 'error'); return; }
+
+  const isEdit = !!document.getElementById('t-edit-id').value;
+  const id = document.getElementById('t-edit-id').value || slug('trabalho-' + Date.now());
+
+  showLoading('A publicar trabalho...');
+
+  try {
+    let fotoUrl = null;
+    if (state.tFotoData) {
+      const ext = state.tFotoName.split('.').pop();
+      const imgPath = 'uploads/trabalhos/' + id + '.' + ext;
+      await saveImage(imgPath, state.tFotoData, 'Upload foto trabalho: ' + id);
+      fotoUrl = 'https://raw.githubusercontent.com/' + CONFIG.repo + '/main/' + imgPath;
+    } else if (isEdit) {
+      const existing = state.trabalhos.find(t => t.id === id);
+      fotoUrl = existing ? existing.foto : null;
+    }
+
+    const trabalho = {
+      id, titulo,
+      tipo: document.getElementById('t-tipo').value,
+      pedido_cliente: document.getElementById('t-pedido').value.trim(),
+      solucao: document.getElementById('t-solucao').value.trim(),
+      resultado: document.getElementById('t-resultado').value.trim(),
+      foto: fotoUrl,
+      data: new Date().toISOString().split('T')[0]
+    };
+
+    await saveFile('content/trabalhos/' + id + '.json', JSON.stringify(trabalho, null, 2), (isEdit ? 'Editar' : 'Adicionar') + ' trabalho: ' + titulo);
+    await updateSiteData();
+
+    if (isEdit) {
+      state.trabalhos = state.trabalhos.map(t => t.id === id ? trabalho : t);
+    } else {
+      state.trabalhos.push(trabalho);
+    }
+    updateDashboard();
+    hideLoading();
+    showToast('✅ Trabalho publicado com sucesso! O site actualiza em ~1 minuto.', 'success');
+    showPage('trabalhos');
+  } catch(e) {
+    hideLoading();
+    showToast('❌ Erro: ' + e.message, 'error');
+  }
+}
+
+// ══════════════════════════════════
+// UPDATE SITE DATA (site-data.json)
+// ══════════════════════════════════
+async function updateSiteData() {
+  const siteData = {
+    viaturas: state.viaturas,
+    trabalhos: state.trabalhos,
+    updated: new Date().toISOString()
+  };
+  await saveFile('site-data.json', JSON.stringify(siteData, null, 2), 'Actualizar dados do site');
+}
+
+// ══════════════════════════════════
+// EDIT / DELETE
+// ══════════════════════════════════
+function editViatura(id) {
+  const v = state.viaturas.find(v => v.id === id);
+  if (!v) return;
+  document.getElementById('viatura-form-title').textContent = 'Editar Viatura';
+  document.getElementById('v-edit-id').value = v.id;
+  document.getElementById('v-marca').value = v.marca || '';
+  document.getElementById('v-modelo').value = v.modelo || '';
+  document.getElementById('v-ano').value = v.ano || '';
+  document.getElementById('v-preco').value = v.preco || '';
+  document.getElementById('v-km').value = v.km || '';
+  document.getElementById('v-descricao').value = v.descricao || '';
+  state.importada = !!v.importada;
+  state.destaque = !!v.destaque;
+  document.getElementById('toggle-importada').classList.toggle('on', state.importada);
+  document.getElementById('toggle-destaque').classList.toggle('on', state.destaque);
+  if (v.foto) {
+    const p = document.getElementById('v-foto-preview');
+    p.src = v.foto; p.style.display = 'block';
+  }
+  showPage('add-viatura');
+}
+
+async function deleteViatura(id) {
+  if (!confirm('Tem a certeza que quer remover esta viatura do site?')) return;
+  showLoading('A remover...');
+  try {
+    await deleteFile('content/viaturas/' + id + '.json', 'Remover viatura: ' + id);
+    state.viaturas = state.viaturas.filter(v => v.id !== id);
+    await updateSiteData();
+    updateDashboard();
+    hideLoading();
+    showToast('✅ Viatura removida.', 'success');
+    renderViaturas();
+  } catch(e) {
+    hideLoading();
+    showToast('❌ Erro: ' + e.message, 'error');
+  }
+}
+
+function editTrabalho(id) {
+  const t = state.trabalhos.find(t => t.id === id);
+  if (!t) return;
+  document.getElementById('trabalho-form-title').textContent = 'Editar Trabalho';
+  document.getElementById('t-edit-id').value = t.id;
+  document.getElementById('t-titulo').value = t.titulo || '';
+  document.getElementById('t-tipo').value = t.tipo || '';
+  document.getElementById('t-pedido').value = t.pedido_cliente || '';
+  document.getElementById('t-solucao').value = t.solucao || '';
+  document.getElementById('t-resultado').value = t.resultado || '';
+  if (t.foto) {
+    const p = document.getElementById('t-foto-preview');
+    p.src = t.foto; p.style.display = 'block';
+  }
+  showPage('add-trabalho');
+}
+
+async function deleteTrabalho(id) {
+  if (!confirm('Tem a certeza que quer remover este trabalho do site?')) return;
+  showLoading('A remover...');
+  try {
+    await deleteFile('content/trabalhos/' + id + '.json', 'Remover trabalho: ' + id);
+    state.trabalhos = state.trabalhos.filter(t => t.id !== id);
+    await updateSiteData();
+    updateDashboard();
+    hideLoading();
+    showToast('✅ Trabalho removido.', 'success');
+    renderTrabalhos();
+  } catch(e) {
+    hideLoading();
+    showToast('❌ Erro: ' + e.message, 'error');
+  }
+}
+
+// ══════════════════════════════════
+// RESET FORMS
+// ══════════════════════════════════
+function resetViaturaForm() {
+  document.getElementById('viatura-form-title').textContent = 'Adicionar Viatura';
+  document.getElementById('v-edit-id').value = '';
+  ['v-marca','v-modelo','v-ano','v-preco','v-km','v-descricao'].forEach(id => document.getElementById(id).value = '');
+  state.importada = false; state.destaque = false;
+  document.getElementById('toggle-importada').classList.remove('on');
+  document.getElementById('toggle-destaque').classList.remove('on');
+  state.vFotoData = null; state.vFotoName = null;
+  document.getElementById('v-foto-preview').style.display = 'none';
+  document.getElementById('v-foto-drop').classList.remove('has-file');
+  document.getElementById('v-foto').value = '';
+}
+
+function resetTrabalhoForm() {
+  document.getElementById('trabalho-form-title').textContent = 'Adicionar Trabalho Realizado';
+  document.getElementById('t-edit-id').value = '';
+  ['t-titulo','t-pedido','t-solucao','t-resultado'].forEach(id => document.getElementById(id).value = '');
+  state.tFotoData = null; state.tFotoName = null;
+  document.getElementById('t-foto-preview').style.display = 'none';
+  document.getElementById('t-foto-drop').classList.remove('has-file');
+  document.getElementById('t-foto').value = '';
+}
+
+// ══════════════════════════════════
+// HELPERS
+// ══════════════════════════════════
+function slug(str) {
+  return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function showLoading(text = 'A carregar...') {
+  document.getElementById('loading-text').textContent = text;
+  document.getElementById('loading').classList.add('show');
+}
+function hideLoading() { document.getElementById('loading').classList.remove('show'); }
+
+let toastTimer;
+function showToast(msg, type = 'success') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast ' + type + ' show';
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 4000);
+}
+</script>
+</body>
+</html>
