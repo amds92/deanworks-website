@@ -1,22 +1,6 @@
 {
   "viaturas": [
     {
-      "id": "mercedes-c63-amg-2019",
-      "titulo": "Mercedes-Benz C63 AMG 2019",
-      "marca": "Mercedes-Benz",
-      "modelo": "C63 AMG",
-      "ano": 2019,
-      "preco": 45000,
-      "km": 45000,
-      "descricao": "Excelente estado, full extras. Importado diretamente da Alemanha com historial completo de manutenção. Cor Cinzento Grafite com interior em pele preta com costuras vermelhas.",
-      "importada": true,
-      "destaque": true,
-      "foto": "",
-      "estado": "disponivel",
-      "data": "2025-03-01"
-    },
-    {
-      "id": "bmw-m3-competition-2021",
       "titulo": "BMW M3 Competition 2021",
       "marca": "BMW",
       "modelo": "M3 Competition",
@@ -31,7 +15,20 @@
       "data": "2025-03-10"
     },
     {
-      "id": "porsche-cayenne-2020",
+      "titulo": "Mercedes-Benz C63 AMG 2019",
+      "marca": "Mercedes-Benz",
+      "modelo": "C63 AMG",
+      "ano": 2019,
+      "preco": 45000,
+      "km": 45000,
+      "descricao": "Excelente estado, full extras. Importado diretamente da Alemanha com historial completo de manutenção. Cor Cinzento Grafite com interior em pele preta com costuras vermelhas.",
+      "importada": true,
+      "destaque": true,
+      "foto": "",
+      "estado": "disponivel",
+      "data": "2025-03-01"
+    },
+    {
       "titulo": "Porsche Cayenne 3.0 V6 2020",
       "marca": "Porsche",
       "modelo": "Cayenne 3.0 V6",
@@ -48,17 +45,6 @@
   ],
   "trabalhos": [
     {
-      "id": "importacao-mercedes-c63",
-      "titulo": "Mercedes C63 AMG — Importação Alemanha",
-      "tipo": "Importação",
-      "pedido_cliente": "Cliente queria um C63 AMG específico numa cor fora do comum, com menos de 50.000 km e dentro de um orçamento de €45.000.",
-      "solucao": "Encontrámos o veículo perfeito na Alemanha, tratámos de toda a documentação de importação, IUC, ISV e homologação em Portugal.",
-      "resultado": "Entregue pronto a circular em menos de 3 semanas. Cliente poupou €8.000 face ao mercado nacional.",
-      "foto": "",
-      "data": "2025-02-15"
-    },
-    {
-      "id": "gestao-frota-empresa-logistica",
       "titulo": "Gestão de Frota — Empresa de Logística",
       "tipo": "Gestão de Frotas",
       "pedido_cliente": "Empresa com 12 viaturas precisava de renovar a frota sem interromper a operação e reduzir custos de manutenção.",
@@ -68,7 +54,15 @@
       "data": "2025-01-20"
     },
     {
-      "id": "servico-comfort-porsche",
+      "titulo": "Mercedes C63 AMG — Importação Alemanha",
+      "tipo": "Importação",
+      "pedido_cliente": "Cliente queria um C63 AMG específico numa cor fora do comum, com menos de 50.000 km e dentro de um orçamento de €45.000.",
+      "solucao": "Encontrámos o veículo perfeito na Alemanha, tratámos de toda a documentação de importação, IUC, ISV e homologação em Portugal.",
+      "resultado": "Entregue pronto a circular em menos de 3 semanas. Cliente poupou €8.000 face ao mercado nacional.",
+      "foto": "",
+      "data": "2025-02-15"
+    },
+    {
       "titulo": "Serviço Comfort — Porsche 911 de Lisboa para Porto",
       "tipo": "Serviço Comfort",
       "pedido_cliente": "Cliente comprou um Porsche 911 em Lisboa mas não tinha disponibilidade para se deslocar a buscar o veículo.",
@@ -78,5 +72,5 @@
       "data": "2025-03-05"
     }
   ],
-  "updated": "2026-03-24T00:00:00.000Z"
+  "updated": "2026-03-24T13:55:05.084Z"
 }
