@@ -850,14 +850,14 @@ async function submitViatura() {
       data: new Date().toISOString().split('T')[0]
     };
 
-    await saveFile('content/viaturas/' + id + '.json', JSON.stringify(viatura, null, 2), (isEdit ? 'Editar' : 'Adicionar') + ' viatura: ' + marca + ' ' + modelo);
-    await updateSiteData();
-
     if (isEdit) {
       state.viaturas = state.viaturas.map(v => v.id === id ? viatura : v);
     } else {
       state.viaturas.push(viatura);
     }
+
+    await saveFile('content/viaturas/' + id + '.json', JSON.stringify(viatura, null, 2), (isEdit ? 'Editar' : 'Adicionar') + ' viatura: ' + marca + ' ' + modelo);
+    await updateSiteData();
     updateDashboard();
     hideLoading();
     showToast('✅ Viatura publicada com sucesso! O site actualiza em ~1 minuto.', 'success');
@@ -902,14 +902,14 @@ async function submitTrabalho() {
       data: new Date().toISOString().split('T')[0]
     };
 
-    await saveFile('content/trabalhos/' + id + '.json', JSON.stringify(trabalho, null, 2), (isEdit ? 'Editar' : 'Adicionar') + ' trabalho: ' + titulo);
-    await updateSiteData();
-
     if (isEdit) {
       state.trabalhos = state.trabalhos.map(t => t.id === id ? trabalho : t);
     } else {
       state.trabalhos.push(trabalho);
     }
+
+    await saveFile('content/trabalhos/' + id + '.json', JSON.stringify(trabalho, null, 2), (isEdit ? 'Editar' : 'Adicionar') + ' trabalho: ' + titulo);
+    await updateSiteData();
     updateDashboard();
     hideLoading();
     showToast('✅ Trabalho publicado com sucesso! O site actualiza em ~1 minuto.', 'success');
