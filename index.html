@@ -1011,14 +1011,24 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
     const toShow = (destaque.length > 0 ? destaque : viaturas.filter(v => v.estado === 'disponivel')).slice(0, 3);
     if (toShow.length > 0) {
       const g = document.getElementById('carros-grid');
-      if (g) { g.innerHTML = toShow.map(renderViatura).join(''); io.observe(g); }
+      if (g) {
+        g.classList.remove('reveal');
+        g.innerHTML = toShow.map(renderViatura).join('');
+        g.style.opacity = '1';
+        g.style.transform = 'none';
+      }
     }
 
     // TRABALHOS
     const trabalhos = (data.trabalhos || []).slice(0, 3);
     if (trabalhos.length > 0) {
       const g = document.getElementById('trabalhos-grid');
-      if (g) { g.innerHTML = trabalhos.map(renderTrabalho).join(''); io.observe(g); }
+      if (g) {
+        g.classList.remove('reveal');
+        g.innerHTML = trabalhos.map(renderTrabalho).join('');
+        g.style.opacity = '1';
+        g.style.transform = 'none';
+      }
     }
   } catch(e) { /* mantém conteúdo estático como fallback */ }
 })();
