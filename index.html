@@ -286,6 +286,8 @@ section { padding: 96px 0; }
   transition: color 0.2s, gap 0.2s;
 }
 .carro-cta:hover { color: var(--accent); gap: 10px; }
+.carro-badge { display:inline-block; font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:3px 10px; border-radius:100px; margin-bottom:10px; }
+.carro-badge-reservado { background:#FFF8E8; color:#C8A84A; border:1px solid #F0D898; }
 
 /* ══════════════ SERVIÇOS ══════════════ */
 .servicos { background: var(--white); }
@@ -664,7 +666,7 @@ footer { background: var(--black); padding: 36px 0; }
       </div>
       <a href="#contacto" class="btn btn-outline">Pedir proposta →</a>
     </div>
-    <div class="carros-grid reveal">
+    <div class="carros-grid reveal" id="carros-grid">
       <div class="carro-card">
         <div class="carro-img"><div class="carro-img-bg"></div><span>🚗</span></div>
         <div class="carro-body">
@@ -773,7 +775,7 @@ footer { background: var(--black); padding: 36px 0; }
       <h2 class="section-title">Trabalhos <em>realizados.</em></h2>
       <p class="section-sub">Cada projeto é único. Cada cliente tem uma história — nós encontramos sempre a solução certa.</p>
     </div>
-    <div class="trabalhos-grid reveal">
+    <div class="trabalhos-grid reveal" id="trabalhos-grid">
       <div class="trab-card">
         <div class="trab-img">🚗</div>
         <div class="trab-body">
@@ -996,6 +998,50 @@ function openMob() { document.getElementById('mob').classList.add('open'); }
 function closeMob() { document.getElementById('mob').classList.remove('open'); }
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+// ── CARREGAMENTO DINÂMICO DE VIATURAS E TRABALHOS ──
+(async function() {
+  try {
+    const res = await fetch('site-data.json?_=' + Date.now());
+    if (!res.ok) return;
+    const data = await res.json();
+
+    // VIATURAS
+    const viaturas = (data.viaturas || []).filter(v => v.estado !== 'vendido');
+    const destaque = viaturas.filter(v => v.destaque && v.estado === 'disponivel');
+    const toShow = (destaque.length > 0 ? destaque : viaturas.filter(v => v.estado === 'disponivel')).slice(0, 3);
+    if (toShow.length > 0) {
+      const g = document.getElementById('carros-grid');
+      if (g) { g.innerHTML = toShow.map(renderViatura).join(''); io.observe(g); }
+    }
+
+    // TRABALHOS
+    const trabalhos = (data.trabalhos || []).slice(0, 3);
+    if (trabalhos.length > 0) {
+      const g = document.getElementById('trabalhos-grid');
+      if (g) { g.innerHTML = trabalhos.map(renderTrabalho).join(''); io.observe(g); }
+    }
+  } catch(e) { /* mantém conteúdo estático como fallback */ }
+})();
+
+function renderViatura(v) {
+  const msg = encodeURIComponent('Olá, tenho interesse no ' + v.marca + ' ' + v.modelo + (v.ano ? ' ' + v.ano : '') + '.');
+  const waLink = 'https://wa.me/351960100223?text=' + msg;
+  const emoji = /porsche/i.test(v.marca) ? '🏎️' : /bmw/i.test(v.marca) ? '🚙' : /range|land/i.test(v.marca) ? '🚙' : '🚗';
+  const imgHtml = v.foto
+    ? '<img src="' + v.foto + '" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" alt="' + v.marca + ' ' + v.modelo + '" onerror="this.style.display=\'none\'">'
+    : '<div class="carro-img-bg"></div><span>' + emoji + '</span>';
+  const badge = v.estado === 'reservado' ? '<span class="carro-badge carro-badge-reservado">Reservado</span><br>' : '';
+  const ctaText = v.estado === 'reservado' ? 'Reservado — Contactar' : 'Pedir proposta';
+  const priceTag = v.preco ? '<div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:10px;">€' + Number(v.preco).toLocaleString('pt-PT') + (v.km ? ' · ' + Number(v.km).toLocaleString('pt-PT') + ' km' : '') + '</div>' : '';
+  return '<div class="carro-card"><div class="carro-img">' + imgHtml + '</div><div class="carro-body">' + badge + '<div class="carro-make">' + v.marca + (v.importada ? ' · Importação' : '') + '</div><div class="carro-name">' + v.modelo + (v.ano ? ' ' + v.ano : '') + '</div>' + priceTag + '<div class="carro-desc">' + v.descricao + '</div><a href="' + waLink + '" target="_blank" class="carro-cta">' + ctaText + ' <span>→</span></a></div></div>';
+}
+
+function renderTrabalho(t) {
+  const emoji = /frota/i.test(t.tipo) ? '🏢' : /comfort|concierge/i.test(t.tipo) ? '💎' : /diagnós/i.test(t.tipo) ? '🔧' : /personali/i.test(t.tipo) ? '🎨' : /prepara/i.test(t.tipo) ? '✨' : '🚗';
+  const imgStyle = t.foto ? 'background-image:url(' + t.foto + ');background-size:cover;background-position:center;font-size:0;' : '';
+  return '<div class="trab-card"><div class="trab-img" style="' + imgStyle + '">' + (t.foto ? '' : emoji) + '</div><div class="trab-body"><span class="trab-tag">' + t.tipo + '</span><div class="trab-title">' + t.titulo + '</div><div class="trab-label">Pedido do cliente</div><div class="trab-text">' + t.pedido_cliente + '</div><div class="trab-label">Solução encontrada</div><div class="trab-text">' + t.solucao + '</div><div class="trab-label">Resultado final</div><div class="trab-text">' + t.resultado + '</div></div></div>';
+}
+
 const form = document.getElementById('theForm');
 if (form) {
   form.addEventListener('submit', async e => {

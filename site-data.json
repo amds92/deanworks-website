@@ -1,1 +1,82 @@
-{"viaturas":[],"trabalhos":[],"updated":null}
+{
+  "viaturas": [
+    {
+      "id": "mercedes-c63-amg-2019",
+      "titulo": "Mercedes-Benz C63 AMG 2019",
+      "marca": "Mercedes-Benz",
+      "modelo": "C63 AMG",
+      "ano": 2019,
+      "preco": 45000,
+      "km": 45000,
+      "descricao": "Excelente estado, full extras. Importado diretamente da Alemanha com historial completo de manutenção. Cor Cinzento Grafite com interior em pele preta com costuras vermelhas.",
+      "importada": true,
+      "destaque": true,
+      "foto": "",
+      "estado": "disponivel",
+      "data": "2025-03-01"
+    },
+    {
+      "id": "bmw-m3-competition-2021",
+      "titulo": "BMW M3 Competition 2021",
+      "marca": "BMW",
+      "modelo": "M3 Competition",
+      "ano": 2021,
+      "preco": 72000,
+      "km": 28000,
+      "descricao": "M3 Competition em estado impecável. Cor Isle of Man Green com jantes M negras. Navegação, câmara de ré, bancos M Sport em pele Merino. Sem acidentes, revisões sempre em BMW.",
+      "importada": true,
+      "destaque": true,
+      "foto": "",
+      "estado": "disponivel",
+      "data": "2025-03-10"
+    },
+    {
+      "id": "porsche-cayenne-2020",
+      "titulo": "Porsche Cayenne 3.0 V6 2020",
+      "marca": "Porsche",
+      "modelo": "Cayenne 3.0 V6",
+      "ano": 2020,
+      "preco": 68000,
+      "km": 38000,
+      "descricao": "Porsche Cayenne de stock nacional em excelente estado de conservação. Branco com interior em pele bege. Teto panorâmico, sistema BOSE, suspensão pneumática, câmara 360°.",
+      "importada": false,
+      "destaque": true,
+      "foto": "",
+      "estado": "disponivel",
+      "data": "2025-02-20"
+    }
+  ],
+  "trabalhos": [
+    {
+      "id": "importacao-mercedes-c63",
+      "titulo": "Mercedes C63 AMG — Importação Alemanha",
+      "tipo": "Importação",
+      "pedido_cliente": "Cliente queria um C63 AMG específico numa cor fora do comum, com menos de 50.000 km e dentro de um orçamento de €45.000.",
+      "solucao": "Encontrámos o veículo perfeito na Alemanha, tratámos de toda a documentação de importação, IUC, ISV e homologação em Portugal.",
+      "resultado": "Entregue pronto a circular em menos de 3 semanas. Cliente poupou €8.000 face ao mercado nacional.",
+      "foto": "",
+      "data": "2025-02-15"
+    },
+    {
+      "id": "gestao-frota-empresa-logistica",
+      "titulo": "Gestão de Frota — Empresa de Logística",
+      "tipo": "Gestão de Frotas",
+      "pedido_cliente": "Empresa com 12 viaturas precisava de renovar a frota sem interromper a operação e reduzir custos de manutenção.",
+      "solucao": "Criámos um plano faseado de substituição, negociámos condições com fornecedores e tratámos da venda das viaturas antigas.",
+      "resultado": "Frota renovada em 60 dias, redução de 30% nos custos de manutenção e operação sem interrupções.",
+      "foto": "",
+      "data": "2025-01-20"
+    },
+    {
+      "id": "servico-comfort-porsche",
+      "titulo": "Serviço Comfort — Porsche 911 de Lisboa para Porto",
+      "tipo": "Serviço Comfort",
+      "pedido_cliente": "Cliente comprou um Porsche 911 em Lisboa mas não tinha disponibilidade para se deslocar a buscar o veículo.",
+      "solucao": "Tratámos de toda a logística: inspecção do veículo em Lisboa, tratamento documental e transporte seguro até ao cliente no Porto.",
+      "resultado": "Veículo entregue ao domicílio em perfeitas condições, sem o cliente sair de casa.",
+      "foto": "",
+      "data": "2025-03-05"
+    }
+  ],
+  "updated": "2026-03-24T00:00:00.000Z"
+}
