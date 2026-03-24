@@ -257,6 +257,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
       <input type="password" id="gh-token" placeholder="ghp_..." style="width:100%;padding:11px 14px;border:1.5px solid #E0E0E0;border-radius:8px;font-size:14px;margin-bottom:6px;">
       <p style="font-size:11px;color:#aaa;margin-bottom:14px;">Guardado no browser. Só pedido uma vez.</p>
     </div>
+    <div id="update-token-link" style="display:none;text-align:right;margin-bottom:14px;">
+      <a href="#" onclick="showTokenField();return false;" style="font-size:12px;color:#888;text-decoration:underline;">Atualizar token guardado</a>
+    </div>
     <button class="login-btn" onclick="doLogin()">Entrar →</button>
     <div class="login-error" id="login-error">Password incorrecta. Tente novamente.</div>
   </div>
@@ -492,11 +495,21 @@ const CONFIG = {
   repo:      'amds92/deanworks-website',
   branch:    'main'
 };
-// Esconder campo token se já existe guardado
-if (CONFIG.token) {
+
+// Auto-login se sessão ainda está activa
+if (sessionStorage.getItem('dw_session') === '1' && CONFIG.token) {
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    loadAll();
+  });
+} else if (CONFIG.token) {
+  // Token guardado mas sem sessão: esconder campo token, mostrar link para o atualizar
   document.addEventListener('DOMContentLoaded', () => {
     const ts = document.getElementById('token-section');
+    const ul = document.getElementById('update-token-link');
     if (ts) ts.style.display = 'none';
+    if (ul) ul.style.display = 'block';
   });
 }
 
@@ -517,6 +530,14 @@ let state = {
 // ══════════════════════════════════
 // LOGIN
 // ══════════════════════════════════
+function showTokenField() {
+  const ts = document.getElementById('token-section');
+  const ul = document.getElementById('update-token-link');
+  if (ts) ts.style.display = 'block';
+  if (ul) ul.style.display = 'none';
+  document.getElementById('gh-token').focus();
+}
+
 function doLogin() {
   const pwd = document.getElementById('pwd').value;
   if (pwd === CONFIG.password) {
@@ -529,9 +550,10 @@ function doLogin() {
     if (!CONFIG.token) {
       document.getElementById('login-error').textContent = 'Introduza o GitHub Token.';
       document.getElementById('login-error').style.display = 'block';
-      document.getElementById('gh-token').focus();
+      showTokenField();
       return;
     }
+    sessionStorage.setItem('dw_session', '1');
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('app').style.display = 'block';
     loadAll();
@@ -544,9 +566,19 @@ function doLogin() {
 }
 
 function doLogout() {
+  sessionStorage.removeItem('dw_session');
   document.getElementById('app').style.display = 'none';
   document.getElementById('login-screen').style.display = 'flex';
   document.getElementById('pwd').value = '';
+  document.getElementById('login-error').style.display = 'none';
+  // Restaurar estado do campo de token
+  if (CONFIG.token) {
+    document.getElementById('token-section').style.display = 'none';
+    document.getElementById('update-token-link').style.display = 'block';
+  } else {
+    document.getElementById('token-section').style.display = 'block';
+    document.getElementById('update-token-link').style.display = 'none';
+  }
 }
 
 // ══════════════════════════════════
@@ -645,10 +677,21 @@ async function loadAll() {
     state.trabalhos = trabalhos.filter(Boolean);
     updateDashboard();
   } catch(e) {
-    // first run — no content yet
-    state.viaturas = [];
-    state.trabalhos = [];
-    updateDashboard();
+    if (e.message && (e.message.includes('401') || e.message.includes('Bad credentials') || e.message.includes('Unauthorized'))) {
+      // Token inválido ou expirado — forçar nova autenticação
+      localStorage.removeItem('dw_token');
+      CONFIG.token = '';
+      sessionStorage.removeItem('dw_session');
+      doLogout();
+      showTokenField();
+      document.getElementById('login-error').textContent = 'Token GitHub expirado. Introduza um novo token.';
+      document.getElementById('login-error').style.display = 'block';
+    } else {
+      // first run — no content yet, or network issue
+      state.viaturas = [];
+      state.trabalhos = [];
+      updateDashboard();
+    }
   }
 }
 
