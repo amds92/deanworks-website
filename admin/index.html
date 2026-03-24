@@ -385,6 +385,14 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
           <label>Descrição</label>
           <textarea id="v-descricao" placeholder="Descreva a viatura — estado, extras, histórico..."></textarea>
         </div>
+        <div class="form-group">
+          <label>Estado da Viatura</label>
+          <select id="v-estado">
+            <option value="disponivel">✅ Disponível</option>
+            <option value="reservado">🟡 Reservado</option>
+            <option value="vendido">🔴 Vendido</option>
+          </select>
+        </div>
         <div style="display:flex;gap:32px;flex-wrap:wrap;margin-bottom:16px;">
           <div class="toggle-group">
             <div class="toggle" id="toggle-importada" onclick="toggleSwitch('importada')"></div>
@@ -407,7 +415,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         </div>
         <div class="form-actions">
           <button class="btn btn-gold" onclick="submitViatura()" id="v-submit-btn">📤 Publicar Viatura</button>
-          <button class="btn btn-outline" onclick="resetViaturaForm()">Cancelar</button>
+          <button class="btn btn-outline" onclick="showPage('viaturas')">Cancelar</button>
         </div>
       </div>
     </div>
@@ -477,7 +485,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         </div>
         <div class="form-actions">
           <button class="btn btn-gold" onclick="submitTrabalho()" id="t-submit-btn">📤 Publicar Trabalho</button>
-          <button class="btn btn-outline" onclick="resetTrabalhoForm()">Cancelar</button>
+          <button class="btn btn-outline" onclick="showPage('trabalhos')">Cancelar</button>
         </div>
       </div>
     </div>
@@ -668,10 +676,18 @@ async function loadAll() {
       listFiles('content/trabalhos')
     ]);
     const viaturas = await Promise.all(
-      vFiles.filter(f => f.name.endsWith('.json')).map(f => getFileContent(f.path))
+      vFiles.filter(f => f.name.endsWith('.json')).map(async f => {
+        const data = await getFileContent(f.path);
+        if (data && !data.id) data.id = f.name.replace('.json', '');
+        return data;
+      })
     );
     const trabalhos = await Promise.all(
-      tFiles.filter(f => f.name.endsWith('.json')).map(f => getFileContent(f.path))
+      tFiles.filter(f => f.name.endsWith('.json')).map(async f => {
+        const data = await getFileContent(f.path);
+        if (data && !data.id) data.id = f.name.replace('.json', '');
+        return data;
+      })
     );
     state.viaturas = viaturas.filter(Boolean);
     state.trabalhos = trabalhos.filter(Boolean);
@@ -719,7 +735,7 @@ function renderViaturas() {
         <div class="badges">
           ${v.destaque ? '<span class="badge badge-gold">⭐ Destaque</span>' : ''}
           ${v.importada ? '<span class="badge badge-blue">🌍 Importada</span>' : ''}
-          <span class="badge badge-green">✓ Online</span>
+          ${v.estado === 'vendido' ? '<span class="badge badge-gray">🔴 Vendido</span>' : v.estado === 'reservado' ? '<span class="badge badge-gold">🟡 Reservado</span>' : '<span class="badge badge-green">✅ Disponível</span>'}
         </div>
       </div>
       <div class="actions">
@@ -829,6 +845,7 @@ async function submitViatura() {
       descricao: document.getElementById('v-descricao').value.trim(),
       importada: state.importada,
       destaque: state.destaque,
+      estado: document.getElementById('v-estado').value || 'disponivel',
       foto: fotoUrl,
       data: new Date().toISOString().split('T')[0]
     };
@@ -920,7 +937,10 @@ async function updateSiteData() {
 // ══════════════════════════════════
 function editViatura(id) {
   const v = state.viaturas.find(v => v.id === id);
-  if (!v) return;
+  if (!v) { showToast('❌ Viatura não encontrada. Recarregue a página.', 'error'); return; }
+  // Reset form to clean state first
+  resetViaturaForm();
+  // Populate with existing data
   document.getElementById('viatura-form-title').textContent = 'Editar Viatura';
   document.getElementById('v-edit-id').value = v.id;
   document.getElementById('v-marca').value = v.marca || '';
@@ -929,6 +949,8 @@ function editViatura(id) {
   document.getElementById('v-preco').value = v.preco || '';
   document.getElementById('v-km').value = v.km || '';
   document.getElementById('v-descricao').value = v.descricao || '';
+  const vEstado = document.getElementById('v-estado');
+  if (vEstado) vEstado.value = v.estado || 'disponivel';
   state.importada = !!v.importada;
   state.destaque = !!v.destaque;
   document.getElementById('toggle-importada').classList.toggle('on', state.importada);
@@ -936,8 +958,14 @@ function editViatura(id) {
   if (v.foto) {
     const p = document.getElementById('v-foto-preview');
     p.src = v.foto; p.style.display = 'block';
+    document.getElementById('v-foto-drop').classList.add('has-file');
   }
-  showPage('add-viatura');
+  // Navigate directly WITHOUT calling showPage (which would reset the form)
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-add-viatura').classList.add('active');
+  const navEl = document.getElementById('nav-add-viatura');
+  if (navEl) navEl.classList.add('active');
 }
 
 async function deleteViatura(id) {
@@ -959,7 +987,10 @@ async function deleteViatura(id) {
 
 function editTrabalho(id) {
   const t = state.trabalhos.find(t => t.id === id);
-  if (!t) return;
+  if (!t) { showToast('❌ Trabalho não encontrado. Recarregue a página.', 'error'); return; }
+  // Reset form to clean state first
+  resetTrabalhoForm();
+  // Populate with existing data
   document.getElementById('trabalho-form-title').textContent = 'Editar Trabalho';
   document.getElementById('t-edit-id').value = t.id;
   document.getElementById('t-titulo').value = t.titulo || '';
@@ -970,8 +1001,14 @@ function editTrabalho(id) {
   if (t.foto) {
     const p = document.getElementById('t-foto-preview');
     p.src = t.foto; p.style.display = 'block';
+    document.getElementById('t-foto-drop').classList.add('has-file');
   }
-  showPage('add-trabalho');
+  // Navigate directly WITHOUT calling showPage (which would reset the form)
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-add-trabalho').classList.add('active');
+  const navEl = document.getElementById('nav-add-trabalho');
+  if (navEl) navEl.classList.add('active');
 }
 
 async function deleteTrabalho(id) {
