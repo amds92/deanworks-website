@@ -7,7 +7,8 @@
   "km": null,
   "descricao": "dxsd",
   "importada": true,
-  "destaque": false,
+  "destaque": true,
+  "estado": "disponivel",
   "foto": null,
   "data": "2026-03-24"
 }
