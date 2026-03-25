@@ -1,0 +1,19 @@
+<% content_for :title, "Viaturas" %>
+
+<div class="page-header">
+  <h1>Viaturas à Venda</h1>
+  <p>Gerencie as viaturas disponíveis no seu site.</p>
+</div>
+
+<div class="card">
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+    <h2 style="margin:0;">Lista de Viaturas</h2>
+    <%= link_to "➕ Nova Viatura", new_admin_vehicle_path, class: "btn btn-gold" %>
+  </div>
+
+  <div class="item-list" style="margin-top:18px;">
+    <% @vehicles.each do |vehicle| %>
+      <%= render "vehicle", vehicle: vehicle %>
+    <% end %>
+  </div>
+</div>

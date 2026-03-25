@@ -1,0 +1,19 @@
+<% content_for :title, "Trabalhos" %>
+
+<div class="page-header">
+  <h1>Trabalhos Realizados</h1>
+  <p>Mostre aos clientes o que já foi feito.</p>
+</div>
+
+<div class="card">
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+    <h2 style="margin:0;">Lista de Trabalhos</h2>
+    <%= link_to "➕ Novo Trabalho", new_admin_work_path, class: "btn btn-gold" %>
+  </div>
+
+  <div class="item-list" style="margin-top:18px;">
+    <% @works.each do |work| %>
+      <%= render "work", work: work %>
+    <% end %>
+  </div>
+</div>

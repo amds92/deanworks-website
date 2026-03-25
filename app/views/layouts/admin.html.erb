@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <title><%= content_for(:title) || "Dean Works — Área de Gestão" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%= stylesheet_link_tag "admin", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="sidebar">
+        <div class="sidebar-logo">
+          <h2>Dean Works</h2>
+          <p>Área de Gestão</p>
+        </div>
+        <nav class="sidebar-nav">
+          <%= link_to admin_vehicles_path, class: "nav-item #{current_page?(admin_vehicles_path) ? "active" : ""}" do %>
+            <span class="icon">🚗</span> Viaturas
+          <% end %>
+          <%= link_to new_admin_vehicle_path, class: "nav-item #{current_page?(new_admin_vehicle_path) ? "active" : ""}" do %>
+            <span class="icon">➕</span> Adicionar Viatura
+          <% end %>
+          <%= link_to admin_works_path, class: "nav-item #{current_page?(admin_works_path) ? "active" : ""}" do %>
+            <span class="icon">🔧</span> Trabalhos Realizados
+          <% end %>
+          <%= link_to new_admin_work_path, class: "nav-item #{current_page?(new_admin_work_path) ? "active" : ""}" do %>
+            <span class="icon">➕</span> Adicionar Trabalho
+          <% end %>
+        </nav>
+        <div class="sidebar-logout">
+          <%= button_to "Sair da conta", destroy_admin_user_session_path, method: :delete, class: "logout-btn" %>
+        </div>
+      </div>
+
+      <div class="main">
+        <% if notice.present? %>
+          <div class="toast show success"><%= notice %></div>
+        <% end %>
+        <% if alert.present? %>
+          <div class="toast show error"><%= alert %></div>
+        <% end %>
+
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

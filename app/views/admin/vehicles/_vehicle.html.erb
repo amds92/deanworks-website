@@ -1,0 +1,44 @@
+<div class="item-card" id="<%= dom_id vehicle %>">
+  <div class="thumb">
+    <% if vehicle.photo.attached? %>
+      <%= image_tag vehicle.photo, alt: "" %>
+    <% else %>
+      🚗
+    <% end %>
+  </div>
+
+  <div class="info">
+    <div class="title"><%= [vehicle.marca, vehicle.modelo, vehicle.ano].compact.join(" ") %></div>
+    <div class="sub">
+      <% if vehicle.preco.present? %>
+        €<%= number_with_delimiter(vehicle.preco, delimiter: ".") %>
+      <% end %>
+      <% if vehicle.km.present? %>
+        · <%= number_with_delimiter(vehicle.km, delimiter: ".") %> km
+      <% end %>
+    </div>
+    <div class="badges">
+      <% if vehicle.destaque %>
+        <span class="badge badge-gold">Destaque</span>
+      <% end %>
+      <% if vehicle.importada %>
+        <span class="badge badge-blue">Importação</span>
+      <% end %>
+      <% if vehicle.estado.present? %>
+        <% if vehicle.estado_available? %>
+          <span class="badge badge-green">Disponível</span>
+        <% elsif vehicle.estado_reserved? %>
+          <span class="badge badge-gold">Reservado</span>
+        <% else %>
+          <span class="badge badge-gray">Vendido</span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= link_to "Ver", admin_vehicle_path(vehicle), class: "btn btn-outline" %>
+    <%= link_to "Editar", edit_admin_vehicle_path(vehicle), class: "btn btn-outline" %>
+    <%= button_to "Apagar", admin_vehicle_path(vehicle), method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: "Tens a certeza?" } } %>
+  </div>
+</div>

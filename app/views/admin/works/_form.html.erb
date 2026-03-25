@@ -1,0 +1,52 @@
+<% work ||= @work %>
+<%= form_with(model: [:admin, work]) do |form| %>
+  <div class="card">
+    <h2>Trabalho Realizado</h2>
+
+    <% if work.errors.any? %>
+      <div class="form-group">
+        <div style="color:#e53e3e;font-size:13px;font-weight:600;">
+          <%= pluralize(work.errors.count, "error") %> impediram guardar.
+        </div>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= form.label :titulo, "Título" %>
+      <%= form.text_field :titulo %>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <%= form.label :tipo, "Tipo de Serviço" %>
+        <%= form.text_field :tipo %>
+      </div>
+      <div class="form-group">
+        <%= form.label :published_on, "Data" %>
+        <%= form.date_field :published_on %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :pedido_cliente, "O que o cliente pediu" %>
+      <%= form.text_area :pedido_cliente %>
+    </div>
+    <div class="form-group">
+      <%= form.label :solucao, "Solução encontrada" %>
+      <%= form.text_area :solucao %>
+    </div>
+    <div class="form-group">
+      <%= form.label :resultado, "Resultado final" %>
+      <%= form.text_area :resultado %>
+    </div>
+    <div class="form-group">
+      <%= form.label :photo, "Foto" %>
+      <%= form.file_field :photo %>
+    </div>
+
+    <div class="form-actions">
+      <%= form.submit "Guardar", class: "btn btn-gold" %>
+      <%= link_to "Cancelar", admin_works_path, class: "btn btn-outline" %>
+    </div>
+  </div>
+<% end %>

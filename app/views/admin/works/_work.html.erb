@@ -1,0 +1,25 @@
+<div class="item-card" id="<%= dom_id work %>">
+  <div class="thumb">
+    <% if work.photo.attached? %>
+      <%= image_tag work.photo, alt: "" %>
+    <% else %>
+      🔧
+    <% end %>
+  </div>
+
+  <div class="info">
+    <div class="title"><%= work.titulo %></div>
+    <div class="sub"><%= work.tipo %></div>
+    <div class="badges">
+      <% if work.published_on.present? %>
+        <span class="badge badge-gray"><%= l(work.published_on) %></span>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= link_to "Ver", admin_work_path(work), class: "btn btn-outline" %>
+    <%= link_to "Editar", edit_admin_work_path(work), class: "btn btn-outline" %>
+    <%= button_to "Apagar", admin_work_path(work), method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: "Tens a certeza?" } } %>
+  </div>
+</div>
