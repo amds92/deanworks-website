@@ -1,0 +1,34 @@
+<% content_for :title, @work.titulo %>
+
+<section class="trabalhos" style="padding-top:120px;">
+  <div class="wrap">
+    <div class="reveal" style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;">
+      <div>
+        <div class="section-tag"><%= @work.tipo %></div>
+        <h1 class="section-title"><%= @work.titulo %></h1>
+        <% if @work.published_on.present? %>
+          <p class="section-sub" style="max-width:none;">Publicado em <%= l(@work.published_on) %></p>
+        <% end %>
+      </div>
+      <%= link_to "← Voltar", works_path, class: "btn btn-outline" %>
+    </div>
+
+    <div class="reveal" style="margin-top:28px;background:var(--white);border:1px solid var(--light2);overflow:hidden;">
+      <div style="height:320px;background:var(--light);display:flex;align-items:center;justify-content:center;position:relative;">
+        <% if @work.photo.attached? %>
+          <%= image_tag @work.photo, alt: "", style: "position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" %>
+        <% else %>
+          <span style="font-size:72px;">🔧</span>
+        <% end %>
+      </div>
+      <div style="padding:28px;">
+        <div class="trab-label">Pedido do cliente</div>
+        <div class="trab-text"><%= simple_format(@work.pedido_cliente.to_s) %></div>
+        <div class="trab-label">Solução encontrada</div>
+        <div class="trab-text"><%= simple_format(@work.solucao.to_s) %></div>
+        <div class="trab-label">Resultado final</div>
+        <div class="trab-text"><%= simple_format(@work.resultado.to_s) %></div>
+      </div>
+    </div>
+  </div>
+</section>

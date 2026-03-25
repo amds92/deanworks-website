@@ -1,0 +1,58 @@
+<% content_for :title, "Viaturas" %>
+
+<section class="carros" style="padding-top:120px;">
+  <div class="wrap">
+    <div class="carros-header reveal" style="margin-bottom:28px;">
+      <div>
+        <div class="section-tag">Disponíveis agora</div>
+        <h1 class="section-title">Todas as <em>viaturas.</em></h1>
+        <p class="section-sub">Listagem atualizada a partir do painel de gestão.</p>
+      </div>
+      <%= link_to "Voltar à Home →", root_path, class: "btn btn-outline" %>
+    </div>
+
+    <div class="carros-grid reveal">
+      <% @vehicles.each do |v| %>
+        <% msg = "Olá, tenho interesse no #{[v.marca, v.modelo, v.ano].compact.join(' ')}." %>
+        <% wa_link = "https://wa.me/351960100223?text=#{ERB::Util.url_encode(msg)}" %>
+        <div class="carro-card">
+          <div class="carro-img">
+            <% if v.photo.attached? %>
+              <%= image_tag v.photo, alt: "", style: "position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" %>
+            <% else %>
+              <div class="carro-img-bg"></div><span>🚗</span>
+            <% end %>
+          </div>
+          <div class="carro-body">
+            <% if v.estado_reserved? %>
+              <span class="carro-badge carro-badge-reservado">Reservado</span><br>
+            <% end %>
+            <div class="carro-make"><%= v.marca %><%= v.importada ? " · Importação" : "" %></div>
+            <div class="carro-name"><%= [v.modelo, v.ano].compact.join(" ") %></div>
+            <% if v.preco.present? %>
+              <div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:10px;">€<%= number_to_currency(v.preco, unit: "", delimiter: ".", precision: 0) %><% if v.km.present? %> · <%= number_with_delimiter(v.km, delimiter: ".") %> km<% end %></div>
+            <% end %>
+            <div class="carro-desc"><%= truncate(v.descricao.to_s, length: 160) %></div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+              <%= link_to "Ver detalhes →", vehicle_path(v), class: "carro-cta", style: "border-bottom:none;" %>
+              <a href="<%= wa_link %>" target="_blank" class="carro-cta" style="border-bottom:none;">WhatsApp <span>→</span></a>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="reveal" style="margin-top:28px;">
+      <% if @vehicles.next_page.present? %>
+        <%= link_to "Show more →", vehicles_path(page: @vehicles.next_page), class: "btn btn-outline" %>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<script>
+  const nav = document.getElementById('nav');
+  if (nav) addEventListener('scroll', () => nav.classList.toggle('stuck', scrollY > 40));
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>

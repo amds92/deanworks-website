@@ -1,0 +1,37 @@
+<% content_for :title, "Trabalhos" %>
+
+<section class="trabalhos" style="padding-top:120px;">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="section-tag">Casos reais</div>
+      <h1 class="section-title">Trabalhos <em>realizados.</em></h1>
+      <p class="section-sub">Tudo o que aparece aqui foi criado no painel de administração.</p>
+    </div>
+
+    <div class="trabalhos-grid reveal">
+      <% @works.each do |t| %>
+        <div class="trab-card">
+          <%= link_to work_path(t), style: "text-decoration:none;color:inherit;" do %>
+            <div class="trab-img" style="<%= t.photo.attached? ? "background-image:url(#{url_for(t.photo)});background-size:cover;background-position:center;font-size:0;" : "" %>">
+              <%= t.photo.attached? ? "" : "🔧" %>
+            </div>
+            <div class="trab-body">
+              <span class="trab-tag"><%= t.tipo %></span>
+              <div class="trab-title"><%= t.titulo %></div>
+              <div class="trab-label">Resumo</div>
+              <div class="trab-text"><%= truncate(t.resultado.to_s, length: 120) %></div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="reveal" style="margin-top:28px;">
+      <% if @works.next_page.present? %>
+        <%= link_to "Show more →", works_path(page: @works.next_page), class: "btn btn-outline" %>
+      <% else %>
+        <%= link_to "Voltar à Home →", root_path, class: "btn btn-outline" %>
+      <% end %>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for(:title) || "Dean Works — Prestige Car Services" %></title>
+    <meta name="description" content="Soluções automóveis premium. Importação, gestão de frotas e serviço completo chave na mão. Simples, rápidas e sem complicações.">
+    <meta name="keywords" content="importação automóvel Portugal, gestão frotas, compra carros premium, consultoria automóvel">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Barlow+Condensed:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>

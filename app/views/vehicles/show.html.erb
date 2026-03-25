@@ -1,0 +1,40 @@
+<% content_for :title, [@vehicle.marca, @vehicle.modelo, @vehicle.ano].compact.join(" ") %>
+
+<section class="carros" style="padding-top:120px;">
+  <div class="wrap">
+    <div class="carros-header reveal" style="margin-bottom:28px;">
+      <div>
+        <div class="section-tag">Viatura</div>
+        <h1 class="section-title"><%= [@vehicle.marca, @vehicle.modelo].compact.join(" ") %> <em><%= @vehicle.ano %></em></h1>
+        <% if @vehicle.preco.present? %>
+          <p class="section-sub" style="max-width:none;">€<%= number_to_currency(@vehicle.preco, unit: "", delimiter: ".", precision: 0) %><% if @vehicle.km.present? %> · <%= number_with_delimiter(@vehicle.km, delimiter: ".") %> km<% end %></p>
+        <% end %>
+      </div>
+      <%= link_to "← Voltar", vehicles_path, class: "btn btn-outline" %>
+    </div>
+
+    <div class="reveal" style="background:var(--white);border:1px solid var(--light2);overflow:hidden;">
+      <div style="height:360px;background:var(--light);position:relative;display:flex;align-items:center;justify-content:center;">
+        <% if @vehicle.photo.attached? %>
+          <%= image_tag @vehicle.photo, alt: "", style: "position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" %>
+        <% else %>
+          <div class="carro-img-bg"></div><span style="font-size:72px;position:relative;">🚗</span>
+        <% end %>
+      </div>
+      <div style="padding:28px 28px 32px;">
+        <% if @vehicle.estado_reserved? %>
+          <span class="carro-badge carro-badge-reservado">Reservado</span>
+        <% end %>
+        <div class="carro-make" style="margin-top:10px;"><%= @vehicle.marca %><%= @vehicle.importada ? " · Importação" : "" %></div>
+        <div style="margin-top:14px;color:var(--silver);font-weight:300;line-height:1.8;"><%= simple_format(@vehicle.descricao.to_s) %></div>
+
+        <% msg = "Olá, tenho interesse no #{[@vehicle.marca, @vehicle.modelo, @vehicle.ano].compact.join(' ')}." %>
+        <% wa_link = "https://wa.me/351960100223?text=#{ERB::Util.url_encode(msg)}" %>
+        <div style="margin-top:22px;display:flex;gap:14px;flex-wrap:wrap;">
+          <a href="<%= wa_link %>" target="_blank" class="btn btn-wa">Falar no WhatsApp</a>
+          <a href="#contacto" class="btn btn-outline">Pedir proposta</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

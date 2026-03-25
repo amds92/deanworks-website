@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -e
+
+if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
+  # shellcheck disable=SC1090
+  source "$HOME/.rvm/scripts/rvm"
+  rvm use 3.2.2 >/dev/null
+elif command -v rbenv >/dev/null 2>&1; then
+  eval "$(rbenv init -)"
+fi
+
+if command -v foreman >/dev/null 2>&1; then
+  exec foreman start -f Procfile.dev "$@"
+elif command -v overmind >/dev/null 2>&1; then
+  exec overmind start -f Procfile.dev "$@"
+else
+  exec bundle exec rails server -p 3000
+fi

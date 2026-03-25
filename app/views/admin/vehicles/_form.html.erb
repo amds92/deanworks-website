@@ -1,0 +1,81 @@
+<% vehicle ||= @vehicle %>
+<%= form_with(model: [:admin, vehicle]) do |form| %>
+  <div class="card">
+    <h2>Dados da Viatura</h2>
+
+    <% if vehicle.errors.any? %>
+      <div class="form-group">
+        <div style="color:#e53e3e;font-size:13px;font-weight:600;">
+          <%= pluralize(vehicle.errors.count, "error") %> impediram guardar.
+        </div>
+      </div>
+    <% end %>
+
+    <div class="form-row">
+      <div class="form-group">
+        <%= form.label :title, "Título" %>
+        <%= form.text_field :title %>
+      </div>
+      <div class="form-group">
+        <%= form.label :estado, "Estado" %>
+        <%= form.select :estado, [["Disponível", "available"], ["Reservado", "reserved"], ["Vendido", "sold"]] %>
+      </div>
+    </div>
+
+    <div class="form-row-3">
+      <div class="form-group">
+        <%= form.label :marca, "Marca" %>
+        <%= form.text_field :marca %>
+      </div>
+      <div class="form-group">
+        <%= form.label :modelo, "Modelo" %>
+        <%= form.text_field :modelo %>
+      </div>
+      <div class="form-group">
+        <%= form.label :ano, "Ano" %>
+        <%= form.number_field :ano %>
+      </div>
+    </div>
+
+    <div class="form-row-3">
+      <div class="form-group">
+        <%= form.label :preco, "Preço (€)" %>
+        <%= form.number_field :preco %>
+      </div>
+      <div class="form-group">
+        <%= form.label :km, "Quilómetros" %>
+        <%= form.number_field :km %>
+      </div>
+      <div class="form-group">
+        <%= form.label :published_on, "Data de publicação" %>
+        <%= form.date_field :published_on %>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <%= form.label :importada, "Importada?" %>
+        <%= form.select :importada, [["Sim", true], ["Não", false]] %>
+      </div>
+      <div class="form-group">
+        <%= form.label :destaque, "Em Destaque no site?" %>
+        <%= form.select :destaque, [["Sim", true], ["Não", false]] %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :descricao, "Descrição" %>
+      <%= form.text_area :descricao %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :photo, "Foto Principal" %>
+      <%= form.file_field :photo %>
+    </div>
+
+    <div class="form-actions">
+      <%= form.submit "Guardar", class: "btn btn-gold" %>
+      <%= link_to "Cancelar", admin_vehicles_path, class: "btn btn-outline" %>
+    </div>
+  </div>
+<% end %>

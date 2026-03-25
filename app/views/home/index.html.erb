@@ -1,0 +1,488 @@
+<!-- WhatsApp float -->
+<a href="https://wa.me/351960100223" target="_blank" class="wa-float" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- Mobile menu -->
+<div class="mob-menu" id="mob">
+  <button class="mob-x" onclick="closeMob()">✕</button>
+  <a href="#servicos" data-turbo="false">Serviços</a>
+  <a href="#trabalhos" data-turbo="false">Trabalhos</a>
+  <a href="#frotas" data-turbo="false">Frotas</a>
+  <a href="#comfort" data-turbo="false">Comfort</a>
+  <a href="#sobre" data-turbo="false">Sobre</a>
+  <a href="#contacto" data-turbo="false" style="color:var(--accent2)">Contactar</a>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="wrap">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <%= image_tag "deanWorks_HOR_ASSINATURA_CORES.png", alt: "Dean Works Prestige Car Services", onerror: "this.style.display='none';this.nextElementSibling.style.display='flex'" %>
+        <div class="nav-logo-fallback" style="display:none">
+          <div class="nav-logo-main">DEAN WORKS</div>
+          <div class="nav-logo-sub">Prestige Car Services</div>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#servicos" data-turbo="false">Serviços</a></li>
+        <li><a href="#trabalhos" data-turbo="false">Trabalhos</a></li>
+        <li><a href="#frotas" data-turbo="false">Frotas</a></li>
+        <li><a href="#comfort" data-turbo="false">Comfort</a></li>
+        <li><a href="#sobre" data-turbo="false">Sobre</a></li>
+        <li><a href="#contacto" data-turbo="false" class="nav-cta">Contactar</a></li>
+      </ul>
+      <div class="burger" onclick="openMob()"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="home" style="padding:0;">
+  <div class="hero-bg"></div>
+  <div class="hero-diagonal"></div>
+  <div class="wrap hero-content">
+    <div class="hero-left">
+      <div class="hero-tag">Prestige Car Services · Lisboa</div>
+      <h1 class="hero-title">
+        <span>Soluções automóveis premium.</span>
+        SIMPLES,<br>RÁPIDAS,<br>SEM<br>COMPLICAÇÕES.
+      </h1>
+      <p class="hero-sub">Importação, gestão de frotas e serviço completo chave na mão. Tratamos de tudo por si.</p>
+      <div class="hero-btns">
+        <a href="#servicos" class="btn btn-dark">
+          Ver Serviços
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="https://wa.me/351960100223" target="_blank" class="btn btn-wa">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Falar Connosco
+        </a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-highlights">
+        <a href="#servicos" class="hero-highlight featured">
+          <div class="hero-hl-icon">🌍</div>
+          <div>
+            <div class="hero-hl-title">Importação Automóvel</div>
+            <div class="hero-hl-sub">Portugal e toda a Europa — chave na mão</div>
+          </div>
+        </a>
+        <a href="#frotas" class="hero-highlight">
+          <div class="hero-hl-icon">🏢</div>
+          <div>
+            <div class="hero-hl-title">Gestão de Frotas</div>
+            <div class="hero-hl-sub">Análise gratuita — sem compromisso</div>
+          </div>
+        </a>
+        <a href="#comfort" class="hero-highlight">
+          <div class="hero-hl-icon">💎</div>
+          <div>
+            <div class="hero-hl-title">Serviço Comfort</div>
+            <div class="hero-hl-sub">Tratamos de tudo. O cliente não perde tempo.</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="wrap">
+      <div class="hero-stats-inner">
+        <div class="h-stat"><div class="h-stat-num">10<sup>+</sup></div><div class="h-stat-label">Anos de experiência</div></div>
+        <div class="h-stat-div"></div>
+        <div class="h-stat"><div class="h-stat-num">500<sup>+</sup></div><div class="h-stat-label">Viaturas tratadas</div></div>
+        <div class="h-stat-div"></div>
+        <div class="h-stat"><div class="h-stat-num">100<sup>%</sup></div><div class="h-stat-label">Chave na mão</div></div>
+        <div class="h-stat-div"></div>
+        <div class="h-stat"><div class="h-stat-num">24<sup>h</sup></div><div class="h-stat-label">Tempo de resposta</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DESTAQUES RÁPIDOS ══ -->
+<section class="quick-highlights" id="highlights" style="padding:0;">
+  <div class="wrap">
+    <div class="qh-grid">
+      <a href="#servicos" class="qh-item reveal">
+        <div class="qh-icon">🌍</div>
+        <div>
+          <div class="qh-title">Importação & Compra</div>
+          <div class="qh-sub">Pesquisa, negociação, transporte e legalização — chave na mão.</div>
+        </div>
+      </a>
+      <a href="#frotas" class="qh-item reveal d1">
+        <div class="qh-icon">🏢</div>
+        <div>
+          <div class="qh-title">Gestão de Frotas</div>
+          <div class="qh-sub">Reduza custos, evite avarias e ganhe controlo total.</div>
+        </div>
+      </a>
+      <a href="#comfort" class="qh-item reveal d2">
+        <div class="qh-icon">💎</div>
+        <div>
+          <div class="qh-title">Serviço Comfort</div>
+          <div class="qh-sub">Tratamos de tudo para que não perca tempo com nada.</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CARROS EM DESTAQUE ══ -->
+<section class="carros" id="carros">
+  <div class="wrap">
+    <div class="carros-header reveal">
+      <div>
+        <div class="section-tag">Disponíveis agora</div>
+        <h2 class="section-title">Viaturas <em>em destaque.</em></h2>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;">
+        <%= link_to "Ver todas →", vehicles_path, class: "btn btn-outline" %>
+        <a href="#contacto" class="btn btn-outline" data-turbo="false">Pedir proposta →</a>
+      </div>
+    </div>
+    <div class="carros-grid reveal" id="carros-grid">
+      <% vehicles_to_show = (@featured_vehicles.presence || @vehicles).first(3) %>
+      <% vehicles_to_show.each do |v| %>
+        <% msg = "Olá, tenho interesse no #{[v.marca, v.modelo, v.ano].compact.join(' ')}." %>
+        <% wa_link = "https://wa.me/351960100223?text=#{ERB::Util.url_encode(msg)}" %>
+        <% cta_text = v.estado_reserved? ? "Reservado — Contactar" : "Pedir proposta" %>
+        <div class="carro-card">
+          <div class="carro-img">
+            <% if v.photo.attached? %>
+              <%= image_tag v.photo, style: "position:absolute;inset:0;width:100%;height:100%;object-fit:cover;", alt: "#{v.marca} #{v.modelo}", onerror: "this.style.display='none'" %>
+            <% else %>
+              <div class="carro-img-bg"></div><span>🚗</span>
+            <% end %>
+          </div>
+          <div class="carro-body">
+            <% if v.estado_reserved? %>
+              <span class="carro-badge carro-badge-reservado">Reservado</span><br>
+            <% end %>
+            <div class="carro-make"><%= v.marca %><%= v.importada ? " · Importação" : "" %></div>
+            <div class="carro-name"><%= v.modelo %><%= v.ano.present? ? " #{v.ano}" : "" %></div>
+            <% if v.preco.present? %>
+              <div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:10px;">€<%= number_with_delimiter(v.preco, delimiter: ".") %><% if v.km.present? %> · <%= number_with_delimiter(v.km, delimiter: ".") %> km<% end %></div>
+            <% end %>
+            <div class="carro-desc"><%= v.descricao %></div>
+            <a href="<%= wa_link %>" target="_blank" class="carro-cta"><%= cta_text %> <span>→</span></a>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SERVIÇOS ══ -->
+<section class="servicos" id="servicos">
+  <div class="wrap">
+    <div class="servicos-header reveal">
+      <div>
+        <div class="section-tag">O que fazemos</div>
+        <h2 class="section-title">Soluções automóveis <em>completas.</em></h2>
+      </div>
+      <p class="section-sub">Tratamos de tudo por si — do início ao fim. Sem preocupações, sem perda de tempo.</p>
+    </div>
+    <div class="servicos-grid reveal">
+      <div class="svc">
+        <div class="svc-num">01</div><div class="svc-icon">🌍</div>
+        <div class="svc-title">Importação Automóvel</div>
+        <p class="svc-desc">A viatura que quer, em Portugal ou na Europa, tratada de A a Z.</p>
+        <ul class="svc-points"><li>Pesquisa personalizada</li><li>Verificação de histórico</li><li>Negociação</li><li>Transporte e legalização</li></ul>
+      </div>
+      <div class="svc">
+        <div class="svc-num">02</div><div class="svc-icon">🏆</div>
+        <div class="svc-title">Venda de Viaturas Selecionadas</div>
+        <p class="svc-desc">Carros premium com histórico comprovado, preparados ao detalhe.</p>
+        <ul class="svc-points"><li>Seleção premium</li><li>Histórico comprovado</li><li>Garantia incluída</li><li>Extras diferenciadores</li></ul>
+      </div>
+      <div class="svc">
+        <div class="svc-num">03</div><div class="svc-icon">✨</div>
+        <div class="svc-title">Preparação e Entrega</div>
+        <p class="svc-desc">A sua viatura entregue em perfeitas condições, pronta a usar.</p>
+        <ul class="svc-points"><li>Revisões completas</li><li>Check-up técnico</li><li>Detailing profissional</li><li>Entrega chave na mão</li></ul>
+      </div>
+      <div class="svc">
+        <div class="svc-num">04</div><div class="svc-icon">🔧</div>
+        <div class="svc-title">Diagnóstico Técnico</div>
+        <p class="svc-desc">Soluções técnicas rápidas com parceiros de confiança.</p>
+        <ul class="svc-points"><li>Diagnóstico eletrónico</li><li>Resolução de erros</li><li>Afinação de software</li><li>Parcerias com oficinas</li></ul>
+      </div>
+      <div class="svc">
+        <div class="svc-num">05</div><div class="svc-icon">🏢</div>
+        <div class="svc-title">Assessoria de Frotas</div>
+        <p class="svc-desc">Controlo total e redução de custos para a sua frota automóvel.</p>
+        <ul class="svc-points"><li>Análise de custos</li><li>Redução de despesas</li><li>Planeamento de manutenção</li><li>Otimização de viaturas</li></ul>
+      </div>
+      <div class="svc">
+        <div class="svc-num">06</div><div class="svc-icon">📋</div>
+        <div class="svc-title">Gestão de Manutenção</div>
+        <p class="svc-desc">Nunca mais uma revisão esquecida. Gerimos tudo por si.</p>
+        <ul class="svc-points"><li>Controlo de revisões</li><li>Planeamento antecipado</li><li>Acompanhamento técnico</li><li>Gestão de oficinas</li></ul>
+      </div>
+      <div class="svc svc-featured">
+        <div class="svc-num">07</div><div class="svc-icon">💎</div>
+        <div class="svc-title">Serviço Comfort / Concierge</div>
+        <p class="svc-desc">"Tratamos de tudo. O cliente não perde tempo."</p>
+        <ul class="svc-points"><li>Compra</li><li>Manutenção</li><li>Burocracias</li><li>Levantamento e entrega</li><li>Acompanhamento total</li></ul>
+      </div>
+      <div class="svc">
+        <div class="svc-num">08</div><div class="svc-icon">🔄</div>
+        <div class="svc-title">Retomas e Intermediação</div>
+        <p class="svc-desc">Vende a sua viatura de forma rápida e sem complicações.</p>
+        <ul class="svc-points"><li>Avaliação justa</li><li>Consignação</li><li>Apoio total na venda</li></ul>
+      </div>
+      <div class="svc">
+        <div class="svc-num">09</div><div class="svc-icon">🎨</div>
+        <div class="svc-title">Personalização e Upgrades</div>
+        <p class="svc-desc">Transforme a sua viatura com melhorias de qualidade.</p>
+        <ul class="svc-points"><li>Jantes e pneus</li><li>Estética e detailing</li><li>Melhorias técnicas</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TRABALHOS ══ -->
+<section class="trabalhos" id="trabalhos">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="section-tag">Casos reais</div>
+      <h2 class="section-title">Trabalhos <em>realizados.</em></h2>
+      <p class="section-sub">Cada projeto é único. Cada cliente tem uma história — nós encontramos sempre a solução certa.</p>
+    </div>
+    <div class="trabalhos-grid reveal" id="trabalhos-grid">
+      <% @works.first(3).each do |t| %>
+        <div class="trab-card">
+          <div class="trab-img" style="<%= t.photo.attached? ? "background-image:url(#{url_for(t.photo)});background-size:cover;background-position:center;font-size:0;" : "" %>">
+            <%= t.photo.attached? ? "" : "🚗" %>
+          </div>
+          <div class="trab-body">
+            <span class="trab-tag"><%= t.tipo %></span>
+            <div class="trab-title"><%= t.titulo %></div>
+            <div class="trab-label">Pedido do cliente</div>
+            <div class="trab-text"><%= t.pedido_cliente %></div>
+            <div class="trab-label">Solução encontrada</div>
+            <div class="trab-text"><%= t.solucao %></div>
+            <div class="trab-label">Resultado final</div>
+            <div class="trab-text"><%= t.resultado %></div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="reveal" style="margin-top:28px;">
+      <%= link_to "Ver todos os trabalhos →", works_path, class: "btn btn-outline" %>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FROTAS ══ -->
+<section class="frotas" id="frotas">
+  <div class="wrap">
+    <div class="frotas-row">
+      <div class="reveal">
+        <div class="section-tag">Para empresas</div>
+        <h2 class="section-title" style="color:var(--white);">Assessoria de <em style="color:var(--accent)">Frotas.</em></h2>
+        <p class="section-sub" style="margin-bottom:0;">Reduza custos, evite avarias e ganhe controlo total. Tratamos de tudo para que se concentre no seu negócio.</p>
+        <div class="frotas-benefits">
+          <div class="frotas-benefit"><div class="frotas-benefit-icon">📊</div><div><div class="frotas-benefit-title">Análise de Custos</div><p class="frotas-benefit-desc">Identificamos onde está a desperdiçar dinheiro e criamos um plano eficaz.</p></div></div>
+          <div class="frotas-benefit"><div class="frotas-benefit-icon">🔧</div><div><div class="frotas-benefit-title">Menos Avarias</div><p class="frotas-benefit-desc">Manutenção planeada com antecedência — nunca mais uma viatura parada.</p></div></div>
+          <div class="frotas-benefit"><div class="frotas-benefit-icon">📋</div><div><div class="frotas-benefit-title">Mais Controlo</div><p class="frotas-benefit-desc">Dashboard completo de toda a frota — relatórios claros e acessíveis.</p></div></div>
+          <div class="frotas-benefit"><div class="frotas-benefit-icon">⚡</div><div><div class="frotas-benefit-title">Otimização da Frota</div><p class="frotas-benefit-desc">Avaliamos se as viaturas são as mais adequadas e propomos soluções melhores.</p></div></div>
+        </div>
+      </div>
+      <div class="reveal d2">
+        <div class="frotas-panel">
+          <p class="frotas-panel-quote">"Peça uma <em>análise gratuita</em> à sua frota — sem compromisso."</p>
+          <p class="frotas-panel-desc">Fazemos um diagnóstico completo, identificamos oportunidades de poupança e apresentamos um plano de gestão personalizado.</p>
+          <a href="https://wa.me/351960100223?text=Ol%C3%A1,%20gostaria%20de%20uma%20an%C3%A1lise%20gratuita%20%C3%A0%20minha%20frota." target="_blank" class="btn btn-wa" style="display:inline-flex;width:100%;justify-content:center;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Pedir Análise Gratuita
+          </a>
+          <div class="frotas-nums">
+            <div class="frotas-num"><div class="frotas-num-n">30%</div><div class="frotas-num-l">Redução média de custos</div></div>
+            <div class="frotas-num"><div class="frotas-num-n">0</div><div class="frotas-num-l">Preocupações para si</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COMFORT ══ -->
+<section class="comfort" id="comfort">
+  <div class="wrap">
+    <div class="comfort-header reveal">
+      <div class="section-tag">Serviço Premium</div>
+      <h2 class="section-title">Serviço <em>Comfort.</em><br>Tratamos de tudo.</h2>
+      <p class="section-sub">"Um serviço completo onde tratamos de tudo por si, para que não perca tempo com nada."</p>
+    </div>
+    <div class="comfort-5 reveal">
+      <div class="comfort-step"><div class="comfort-step-icon">🚗</div><div class="comfort-step-title">Compra</div><p class="comfort-step-desc">Encontramos, negociamos e tratamos de toda a burocracia.</p></div>
+      <div class="comfort-step"><div class="comfort-step-icon">🔧</div><div class="comfort-step-title">Manutenção</div><p class="comfort-step-desc">Revisões e reparações agendadas por nós.</p></div>
+      <div class="comfort-step"><div class="comfort-step-icon">📄</div><div class="comfort-step-title">Burocracias</div><p class="comfort-step-desc">IMT, seguros, inspeções — toda a papelada.</p></div>
+      <div class="comfort-step"><div class="comfort-step-icon">🏠</div><div class="comfort-step-title">Levantamento e Entrega</div><p class="comfort-step-desc">Levantamos e entregamos onde quiser.</p></div>
+      <div class="comfort-step"><div class="comfort-step-icon">🤝</div><div class="comfort-step-title">Acompanhamento Total</div><p class="comfort-step-desc">Sempre disponíveis para qualquer necessidade.</p></div>
+    </div>
+    <div class="comfort-4 reveal">
+      <div class="comfort-benefit"><div class="comfort-benefit-icon">😌</div><div class="comfort-benefit-title">Zero Preocupações</div><p class="comfort-benefit-desc">Esquece os problemas automóveis — nós tratamos de tudo.</p></div>
+      <div class="comfort-benefit featured"><div class="comfort-benefit-icon">✨</div><div class="comfort-benefit-title" style="color:var(--accent2)">Serviço Personalizado</div><p class="comfort-benefit-desc">Cada cliente é diferente — o serviço adapta-se a si.</p></div>
+      <div class="comfort-benefit"><div class="comfort-benefit-icon">📞</div><div class="comfort-benefit-title">Acompanhamento Total</div><p class="comfort-benefit-desc">Disponíveis antes, durante e depois.</p></div>
+      <div class="comfort-benefit"><div class="comfort-benefit-icon">⏱️</div><div class="comfort-benefit-title">Poupança de Tempo</div><p class="comfort-benefit-desc">O seu tempo vale muito — nós sabemos disso.</p></div>
+    </div>
+    <div class="comfort-cta reveal">
+      <a href="https://wa.me/351960100223?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20Servi%C3%A7o%20Comfort." target="_blank" class="btn btn-dark">Falar no WhatsApp</a>
+      <a href="#contacto" class="btn btn-outline">Pedir Proposta</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SOBRE ══ -->
+<section class="sobre" id="sobre">
+  <div class="wrap">
+    <div class="sobre-row">
+      <div class="reveal">
+        <div class="section-tag">Quem somos</div>
+        <h2 class="section-title" style="margin-bottom:28px;">Mais do que vender carros,<br><em>criamos confiança.</em></h2>
+        <p class="sobre-quote">"Eficiência, transparência e excelência em cada serviço que prestamos."</p>
+        <p class="sobre-text">A Dean Works nasceu da paixão pelo automóvel e da vontade de oferecer algo diferente: um serviço <strong>completo, transparente e personalizado</strong>. Não vendemos apenas carros — construímos relações de confiança duradouras.</p>
+        <p class="sobre-text">Especializados em veículos premium e soluções chave na mão, temos a experiência e os parceiros certos para resolver qualquer necessidade automóvel — com a <strong>eficiência que o seu tempo merece</strong>.</p>
+        <div class="sobre-points">
+          <div class="sobre-point"><div class="sobre-point-dot"></div><p class="sobre-point-text"><strong>Atenção ao detalhe</strong> — cada viatura é tratada como se fosse nossa.</p></div>
+          <div class="sobre-point"><div class="sobre-point-dot"></div><p class="sobre-point-text"><strong>Relação com o cliente</strong> — estamos disponíveis antes, durante e depois.</p></div>
+          <div class="sobre-point"><div class="sobre-point-dot"></div><p class="sobre-point-text"><strong>Serviço completo</strong> — uma solução para cada necessidade, sem complicações.</p></div>
+          <div class="sobre-point"><div class="sobre-point-dot"></div><p class="sobre-point-text"><strong>Transparência total</strong> — sem surpresas, sem custos escondidos.</p></div>
+        </div>
+      </div>
+      <div class="reveal d2">
+        <div class="sobre-logo-wrap">
+          <%= image_tag "deanWorks_HOR_ASSINATURA_CORES.png", alt: "Dean Works", style: "max-width:260px;", onerror: "this.outerHTML=\"<div style='font-family:Barlow Condensed,sans-serif;font-size:42px;font-weight:800;color:#141312;letter-spacing:0.1em;'>DEAN WORKS</div><div style='font-size:12px;letter-spacing:0.25em;color:#8C8A87;text-transform:uppercase;margin-top:4px;'>Prestige Car Services</div>\"" %>
+        </div>
+        <div class="sobre-stats">
+          <div class="sobre-stat"><div class="sobre-stat-n">10<sup>+</sup></div><div class="sobre-stat-l">Anos de mercado</div></div>
+          <div class="sobre-stat"><div class="sobre-stat-n">500<sup>+</sup></div><div class="sobre-stat-l">Clientes satisfeitos</div></div>
+          <div class="sobre-stat"><div class="sobre-stat-n">PT/EU</div><div class="sobre-stat-l">Cobertura geográfica</div></div>
+          <div class="sobre-stat"><div class="sobre-stat-n">24<sup>h</sup></div><div class="sobre-stat-l">Tempo de resposta</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACTO ══ -->
+<section class="contacto" id="contacto">
+  <div class="wrap">
+    <div class="reveal" style="margin-bottom:52px;">
+      <div class="section-tag">Entre em contacto</div>
+      <h2 class="section-title">Pronto para começar?<br><em>Fale connosco.</em></h2>
+      <p class="section-sub">Resposta garantida em menos de 24 horas. Sem compromisso, sem complicações.</p>
+    </div>
+    <div class="contacto-row reveal">
+      <div>
+        <div class="contacto-info-item">
+          <div class="contacto-icon">📞</div>
+          <div><div class="contacto-info-label">Telefone</div><div class="contacto-info-value"><a href="tel:+351960100223">960 100 223</a></div></div>
+        </div>
+        <div class="contacto-info-item">
+          <div class="contacto-icon">💬</div>
+          <div><div class="contacto-info-label">WhatsApp</div><div class="contacto-info-value"><a href="https://wa.me/351960100223" target="_blank">960 100 223</a></div></div>
+        </div>
+        <div class="contacto-info-item">
+          <div class="contacto-icon">✉️</div>
+          <div><div class="contacto-info-label">Email</div><div class="contacto-info-value"><a href="mailto:deanworks@sapo.pt">deanworks@sapo.pt</a></div></div>
+        </div>
+        <div class="contacto-info-item">
+          <div class="contacto-icon">📍</div>
+          <div><div class="contacto-info-label">Localização</div><div class="contacto-info-value">Portugal · Disponível em toda a Europa</div></div>
+        </div>
+        <div class="contacto-btns">
+          <a href="https://wa.me/351960100223" target="_blank" class="btn btn-wa" style="justify-content:center;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Falar no WhatsApp
+          </a>
+          <a href="#contacto" class="btn btn-outline" style="justify-content:center;" onclick="document.querySelector('.contacto-form').scrollIntoView({behavior:'smooth'});return false;">Pedir Proposta</a>
+        </div>
+      </div>
+      <div class="contacto-form" id="cForm">
+        <div class="form-title">Deixe o seu pedido</div>
+        <form id="theForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div class="form-group">
+            <label class="form-label">Nome</label>
+            <input class="form-input" type="text" name="name" placeholder="O seu nome" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Telefone</label>
+            <input class="form-input" type="tel" name="phone" placeholder="9XX XXX XXX" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Pedido</label>
+            <textarea class="form-textarea" name="message" placeholder="Descreva o que precisa..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit" id="submitBtn">
+            Enviar Pedido
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </form>
+        <div class="form-success" id="formOk">
+          <div class="form-success-icon">✅</div>
+          <p class="form-success-text">Pedido enviado! Entramos em contacto em breve.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-row">
+      <div class="footer-logo">DEAN WORKS</div>
+      <div class="footer-copy">© <%= Time.current.year %> Dean Works Prestige Car Services</div>
+      <div class="footer-links">
+        <a href="tel:+351960100223">960 100 223</a>
+        <a href="mailto:deanworks@sapo.pt">deanworks@sapo.pt</a>
+        <a href="https://www.facebook.com/profile.php?id=100063692911276" target="_blank">Facebook</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('stuck', scrollY > 40));
+function openMob() { document.getElementById('mob').classList.add('open'); }
+function closeMob() { document.getElementById('mob').classList.remove('open'); }
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Evitar Turbo/refresh em anchors e garantir scroll suave + fechar menu mobile
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const href = a.getAttribute('href');
+    if (!href || href === '#') return;
+    const el = document.querySelector(href);
+    if (!el) return;
+    e.preventDefault();
+    closeMob();
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    history.replaceState(null, '', href);
+  });
+});
+
+const form = document.getElementById('theForm');
+if (form) {
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true; btn.textContent = 'A enviar...';
+    try {
+      const res = await fetch(form.action, { method:'POST', body:new FormData(form), headers:{'Accept':'application/json'} });
+      if (res.ok) { form.style.display='none'; document.getElementById('formOk').style.display='block'; }
+      else { btn.disabled=false; btn.textContent='Tentar novamente'; }
+    } catch { btn.disabled=false; btn.textContent='Tentar novamente'; }
+  });
+}
+</script>
