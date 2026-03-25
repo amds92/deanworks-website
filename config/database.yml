@@ -80,6 +80,4 @@ test:
 #
 production:
   <<: *default
-  database: deanworks_production
-  username: deanworks
-  password: <%= ENV["DEANWORKS_DATABASE_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"] %>
