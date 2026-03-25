@@ -13,10 +13,10 @@ require "json"
 admin_email = ENV.fetch("ADMIN_EMAIL", "admin@deanworks.local")
 admin_password = ENV.fetch("ADMIN_PASSWORD", "ChangeMe123!@#")
 
-AdminUser.find_or_create_by!(email: admin_email) do |u|
-  u.password = admin_password
-  u.password_confirmation = admin_password
-end
+admin = AdminUser.find_or_initialize_by(email: admin_email)
+admin.password = admin_password
+admin.password_confirmation = admin_password
+admin.save!
 
 legacy_path = Rails.root.join("legacy", "site-data.json")
 if File.exist?(legacy_path)
